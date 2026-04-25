@@ -1,7 +1,3 @@
-// ============ GEMINI API CONFIG ============
-const GEMINI_API_KEY = 'AIzaSyD4k4RPKJb0kSMvVjVa4qc78_KuCpzj718';
-const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
-
 
 // ============ i18n TRANSLATIONS ============
 const I18N = {
@@ -835,9 +831,7 @@ async function sendMessage() {
       parts: [{ text: m.content }]
     }));
 
-    const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-
-    const response = await fetch(geminiEndpoint, {
+    const response = await fetch('/api/chat', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
