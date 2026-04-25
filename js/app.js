@@ -1,3 +1,6 @@
+// ============ GEMINI API CONFIG ============
+const GEMINI_API_KEY = 'AIzaSyD4k4RPKJb0kSMvVjVa4qc78_KuCpzj718';
+const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
 
 // ============ i18n TRANSLATIONS ============
 const I18N = {
@@ -127,7 +130,7 @@ const I18N = {
     high_priority_emp: "High-Priority Employees",
     high_priority_sub: "Ranked by urgency · anonymized",
     col_mh_score: "MH Score", col_trend: "Trend",
-    footer_powered: "Powered by Claude / Gemini · N'Rub Job listens first, advises second",
+    footer_powered: "Powered by Gemini 3.1 Flash Lite · N'Rub Job listens first, advises second",
     mascot_tooltip: "Click to talk with me 💙",
     phase_label_1: "PHASE 1 · RAPPORT", phase_label_2: "PHASE 2 · INTAKE",
     phase_label_3: "PHASE 3 · SCREENING", phase_label_4: "PHASE 4 · MSE",
@@ -291,7 +294,7 @@ const I18N = {
     high_priority_emp: "พนักงานที่ต้องดูแลเร่งด่วน",
     high_priority_sub: "เรียงตามความเร่งด่วน · ไม่ระบุตัวตน",
     col_mh_score: "คะแนนสุขภาพจิต", col_trend: "แนวโน้ม",
-    footer_powered: "ขับเคลื่อนโดย Claude / Gemini · น้องรับจบรับฟังก่อน แนะนำทีหลัง",
+    footer_powered: "ขับเคลื่อนโดย Gemini 3.1 Flash Lite · น้องรับจบรับฟังก่อน แนะนำทีหลัง",
     mascot_tooltip: "แตะเพื่อคุยกันนะครับ 💙",
     phase_label_1: "ขั้น 1 · สร้างความสัมพันธ์", phase_label_2: "ขั้น 2 · รับข้อมูล",
     phase_label_3: "ขั้น 3 · คัดกรอง", phase_label_4: "ขั้น 4 · ตรวจสภาพจิต",
@@ -471,13 +474,15 @@ Field specs:
 - session_summary_update: this gets shown back to the user as a reflection — write in first-person user voice, be specific, short (<100 chars). Empty string OK if nothing new
 - next_phase_readiness: 0-1, how ready to advance to next phase`;
 
-// ============ AUTH ============
-const CREDS = {
-  'abc123@gmail.com': { password: '12345678', role: 'employee', name: 'Alex Chen', id: 'EMP-4729' },
-  'admin999@gmail.com': { password: '99999999', role: 'hr', name: 'Admin (HR)', id: 'HR-001' }
+// ============ AUTH (Firebase) ============
+// Default profiles for first-time Firebase login (role assignment)
+const DEFAULT_PROFILES = {
+  'admin999@gmail.com': { role: 'hr', name: 'Admin (HR)', id: 'HR-001' },
+  'abc123@gmail.com': { role: 'employee', name: 'Alex Chen', id: 'EMP-4729' }
 };
-let currentUser = null;
+let currentUser = null; // { uid, email, role, name, id, consented }
 let hasConsented = false;
+let sanctuaryCache = null; // In-memory cache for sanctuary data
 
 function openConsent() {
   document.getElementById('consent-modal').classList.add('show');
@@ -498,23 +503,15 @@ function agreeConsent() {
   goto('login');
 }
 
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pw = document.getElementById('login-password').value;
-  const errEl = document.getElementById('login-error');
-  errEl.classList.remove('show');
-  const user = CREDS[email];
-  if (!user || user.password !== pw) { errEl.classList.add('show'); return; }
-  currentUser = { email, ...user };
-  localStorage.setItem('mindhub_user', JSON.stringify(currentUser));
-
+// Setup UI after successful login
+async function setupLoggedInUser() {
   document.getElementById('top-nav').style.display = 'flex';
   document.getElementById('top-user').style.display = 'flex';
-  document.getElementById('user-avatar').textContent = user.name[0];
-  document.getElementById('user-name').textContent = user.name;
-  document.getElementById('user-role').textContent = user.role === 'hr' ? 'HR · Full Access' : 'Employee · #' + user.id;
+  document.getElementById('user-avatar').textContent = currentUser.name[0];
+  document.getElementById('user-name').textContent = currentUser.name;
+  document.getElementById('user-role').textContent = currentUser.role === 'hr' ? 'HR · Full Access' : 'Employee · #' + currentUser.id;
 
-  if (user.role === 'hr') {
+  if (currentUser.role === 'hr') {
     document.getElementById('nav-hr').style.display = 'inline-block';
     document.getElementById('nav-chat').style.display = 'none';
     document.getElementById('nav-data').style.display = 'none';
@@ -523,20 +520,54 @@ function doLogin() {
     document.getElementById('nav-hr').style.display = 'none';
     document.getElementById('nav-chat').style.display = 'inline-block';
     document.getElementById('nav-data').style.display = 'inline-block';
-    loadUserSessions();
-    seedDemoSanctuary();
-    refreshSanctuary();
+    await loadUserSessions();
+    await initSanctuary();
     goto('employee');
     showMascot();
   }
 }
 
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.classList.remove('show');
+
+  try {
+    const userCredential = await auth.signInWithEmailAndPassword(email, pw);
+    const uid = userCredential.user.uid;
+
+    // Load or create Firestore profile
+    let profile = await DB.loadProfile(uid);
+    if (!profile) {
+      const defaults = DEFAULT_PROFILES[email] || {
+        role: 'employee',
+        name: email.split('@')[0],
+        id: 'EMP-' + Math.floor(Math.random() * 9000 + 1000)
+      };
+      profile = { ...defaults, email, consented: true };
+      await DB.saveProfile(uid, profile);
+    }
+    // Mark consent in profile if not already
+    if (!profile.consented) {
+      profile.consented = true;
+      await DB.saveProfile(uid, { consented: true });
+    }
+
+    currentUser = { uid, ...profile };
+    await setupLoggedInUser();
+  } catch (err) {
+    console.error('Login error:', err);
+    errEl.classList.add('show');
+  }
+}
+
 // Seed some demo data on first-ever login so the sanctuary isn't empty for pitch demo
-function seedDemoSanctuary() {
-  const key = sanctuaryStorageKey();
-  if (!key) return;
-  const existing = localStorage.getItem(key);
-  if (existing) return; // Already has data, don't overwrite
+async function seedDemoSanctuary() {
+  if (!currentUser) return;
+  // Check if sanctuary already exists in Firestore
+  const existing = await DB.loadSanctuary(currentUser.uid);
+  if (existing && existing.plants && existing.plants.length > 0) return; // Already seeded
   const seed = emptySanctuary();
   // Seed with a handful of plants from "past days"
   const demoPlants = [
@@ -570,14 +601,27 @@ function seedDemoSanctuary() {
     { text: "Saying 'no' to a meeting didn't break anything.", date: Date.now() - 4 * 86400000 },
     { text: "Sleep affects my mood more than I realized.", date: Date.now() - 6 * 86400000 }
   ];
-  // Seed milestones based on derived state
+  // Save to Firestore and cache
+  sanctuaryCache = seed;
   saveSanctuary(seed);
   checkMilestones();
 }
 
-function logout() {
+// Initialize sanctuary: load from Firestore, seed if needed
+async function initSanctuary() {
+  if (!currentUser || currentUser.role !== 'employee') return;
+  await seedDemoSanctuary();
+  sanctuaryCache = await DB.loadSanctuary(currentUser.uid);
+  if (!sanctuaryCache) sanctuaryCache = emptySanctuary();
+  refreshSanctuary();
+}
+
+async function logout() {
+  try { await auth.signOut(); } catch(e) { console.error('Logout error:', e); }
   currentUser = null;
-  localStorage.removeItem('mindhub_user');
+  sanctuaryCache = null;
+  sessions = [];
+  activeSessionId = null;
   document.getElementById('top-nav').style.display = 'none';
   document.getElementById('top-user').style.display = 'none';
   document.getElementById('login-email').value = '';
@@ -661,18 +705,14 @@ let sessions = [];
 let activeSessionId = null;
 let currentPhase = 1;
 
-function userStorageKey() {
-  return currentUser ? `mindhub_sessions_${currentUser.email}` : null;
-}
-
-function loadUserSessions() {
-  const key = userStorageKey();
-  if (!key) return;
+async function loadUserSessions() {
+  if (!currentUser) return;
   try {
-    sessions = JSON.parse(localStorage.getItem(key) || '[]');
+    sessions = await DB.loadSessions(currentUser.uid);
   } catch(e) { sessions = []; }
-  // Load active session id
-  const lastActive = localStorage.getItem(key + '_active');
+  // Load active session id from profile
+  const profile = await DB.loadProfile(currentUser.uid);
+  const lastActive = profile?.activeSessionId;
   if (lastActive && sessions.find(s => s.id === lastActive)) {
     activeSessionId = lastActive;
   } else if (sessions.length > 0) {
@@ -685,10 +725,14 @@ function loadUserSessions() {
 }
 
 function saveSessions() {
-  const key = userStorageKey();
-  if (!key) return;
-  localStorage.setItem(key, JSON.stringify(sessions));
-  if (activeSessionId) localStorage.setItem(key + '_active', activeSessionId);
+  if (!currentUser?.uid) return;
+  // Save the active session to Firestore (fire-and-forget)
+  const active = sessions.find(s => s.id === activeSessionId);
+  if (active) {
+    DB.saveSession(currentUser.uid, active).catch(e => console.error('saveSessions error:', e));
+  }
+  // Save active session ID preference
+  DB.saveProfile(currentUser.uid, { activeSessionId }).catch(e => console.error('saveActiveId error:', e));
 }
 
 function newSession() {
@@ -725,6 +769,10 @@ function deleteSession(sid, ev) {
   sessions = sessions.filter(s => s.id !== sid);
   if (activeSessionId === sid) {
     activeSessionId = sessions.length > 0 ? sessions[0].id : null;
+  }
+  // Delete from Firestore
+  if (currentUser?.uid) {
+    DB.deleteSession(currentUser.uid, sid).catch(e => console.error('deleteSession error:', e));
   }
   saveSessions();
   renderSessionList();
@@ -825,19 +873,26 @@ async function sendMessage() {
   const typingEl = appendTyping();
 
   try {
-    // Build message history for Gemini API (role: user/model)
+    // Build message history for Gemini API (role: user/model, parts array)
     const geminiContents = session.messages.map(m => ({
       role: m.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: m.content }]
     }));
 
-    const response = await fetch('/api/chat', {
+    const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+
+    const response = await fetch(geminiEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        systemInstruction: {
+          parts: [{ text: SYSTEM_PROMPT }]
+        },
         contents: geminiContents,
-        generationConfig: { maxOutputTokens: 1000, temperature: 0.7 }
+        generationConfig: {
+          maxOutputTokens: 1000,
+          temperature: 0.7
+        }
       })
     });
     if (!response.ok) {
@@ -887,7 +942,7 @@ async function sendMessage() {
     renderSessionList();
   } catch (err) {
     typingEl.className = 'msg error';
-    typingEl.textContent = 'Error: ' + err.message + '\n\nMake sure your Gemini API key is valid. Get one free at https://aistudio.google.com/apikey';
+    typingEl.textContent = 'Error: ' + err.message + '\n\n(Make sure your Gemini API key is set correctly in js/app.js. Get one free at https://aistudio.google.com/apikey)';
     session.messages.push({ role: 'assistant', content: `[ERROR] ${err.message}` });
     saveSessions();
   } finally {
@@ -1014,19 +1069,12 @@ const MILESTONES = [
   { id: 'full_moon', icon: '🌕', titleKey: 'm_full_moon_t', descKey: 'm_full_moon_d', check: (s) => s.daysVisited.length >= 30 }
 ];
 
-function sanctuaryStorageKey() {
-  return currentUser ? `mindhub_sanctuary_${currentUser.email}` : null;
-}
+// Sanctuary uses in-memory cache (loaded on login via initSanctuary)
+// Reads are synchronous from cache; writes go to cache + Firestore (fire-and-forget)
 
 function loadSanctuary() {
-  const key = sanctuaryStorageKey();
-  if (!key) return emptySanctuary();
-  try {
-    const s = JSON.parse(localStorage.getItem(key) || 'null');
-    if (!s) return emptySanctuary();
-    // Ensure all fields exist
-    return Object.assign(emptySanctuary(), s);
-  } catch(e) { return emptySanctuary(); }
+  if (!sanctuaryCache) sanctuaryCache = emptySanctuary();
+  return Object.assign(emptySanctuary(), sanctuaryCache);
 }
 
 function emptySanctuary() {
@@ -1043,9 +1091,12 @@ function emptySanctuary() {
 }
 
 function saveSanctuary(s) {
-  const key = sanctuaryStorageKey();
-  if (!key) return;
-  localStorage.setItem(key, JSON.stringify(s));
+  // Update in-memory cache
+  sanctuaryCache = s;
+  // Fire-and-forget write to Firestore
+  if (currentUser?.uid) {
+    DB.saveSanctuary(currentUser.uid, s).catch(e => console.error('saveSanctuary error:', e));
+  }
 }
 
 function todayKey() {
@@ -1360,17 +1411,18 @@ function init() {
   renderBarChart();
   renderHeatmap();
 
-  // Persistent auth check
-  const savedUser = localStorage.getItem('mindhub_user');
-  const consented = localStorage.getItem('mindhub_consented') === '1';
-  if (savedUser && consented) {
-    try {
-      const u = JSON.parse(savedUser);
-      // Simulate auto-login for UX (user can still logout)
-      document.getElementById('login-email').value = u.email;
-      // Don't auto-login password — still require click for safety in demo
-    } catch(e) {}
-  }
+  // Persistent auth check via Firebase
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      // User is already signed in (Firebase persists auth state)
+      const profile = await DB.loadProfile(user.uid);
+      if (profile && profile.consented) {
+        currentUser = { uid: user.uid, ...profile };
+        hasConsented = true;
+        await setupLoggedInUser();
+      }
+    }
+  });
 
   // ESC closes consent modal
   document.addEventListener('keydown', (e) => {
