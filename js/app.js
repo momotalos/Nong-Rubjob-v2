@@ -329,25 +329,40 @@ async function doLogin() {
   const errEl = document.getElementById('login-error');
   errEl.classList.remove('show');
 
+  if (!email || !pw) { errEl.classList.add('show'); return; }
+
   let uid = null;
 
+  // Firebase 10 uses 'auth/invalid-credential' for BOTH wrong-password AND user-not-found,
+  // so we can't tell them apart on signIn failure alone.
+  // Strategy: try signIn first; if it fails with any auth error, try createUser;
+  // if createUser fails with 'auth/email-already-in-use', the password was just wrong.
   try {
-    // Try signing in first
-    const userCredential = await auth.signInWithEmailAndPassword(email, pw);
-    uid = userCredential.user.uid;
+    const cred = await auth.signInWithEmailAndPassword(email, pw);
+    uid = cred.user.uid;
   } catch (signInErr) {
-    // If user doesn't exist yet, create them automatically
-    if (signInErr.code === 'auth/user-not-found' || signInErr.code === 'auth/invalid-credential' || signInErr.code === 'auth/invalid-email') {
+    console.warn('Sign-in failed:', signInErr.code);
+    // Only attempt account creation for auth errors (not network errors etc.)
+    const authErrors = [
+      'auth/user-not-found',
+      'auth/invalid-credential',
+      'auth/wrong-password',
+      'auth/invalid-email',
+      'auth/user-disabled'
+    ];
+    if (authErrors.includes(signInErr.code)) {
       try {
-        const newCredential = await auth.createUserWithEmailAndPassword(email, pw);
-        uid = newCredential.user.uid;
+        const newCred = await auth.createUserWithEmailAndPassword(email, pw);
+        uid = newCred.user.uid;
+        console.log('New account created for:', email);
       } catch (createErr) {
-        console.error('Login/create error:', createErr);
+        console.warn('Create failed:', createErr.code);
+        // 'auth/email-already-in-use' means account exists but password is wrong
+        // Any other error: show error
         errEl.classList.add('show');
         return;
       }
     } else {
-      console.error('Login error:', signInErr);
       errEl.classList.add('show');
       return;
     }
