@@ -1,4 +1,6 @@
 // ============ FIREBASE CONFIGURATION ============
+// Using Firebase compat SDK (loaded via CDN in index.html) — no build step needed.
+
 const firebaseConfig = {
   apiKey: "AIzaSyCNp6PCsyxCWI2tYGUYvgyKMkLXNJF9QjE",
   authDomain: "gen-lang-client-0866800129.firebaseapp.com",

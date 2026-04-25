@@ -1,6 +1,11 @@
 // ============ FIRESTORE DATA LAYER ============
 // All Firestore CRUD operations, scoped to authenticated user's UID.
 // Uses fire-and-forget writes for non-critical saves to keep UI responsive.
+//
+// Firestore structure:
+//   users/{uid}                        → { name, email, role, createdAt }
+//   users/{uid}/sessions/{sessionId}   → { title, messages[], phase, lastSignal, createdAt, updatedAt }
+//   users/{uid}/data/sanctuary         → { plants[], vault[], milestones{}, daysVisited[], ... }
 
 const DB = {
   // ---- User Profile ----
