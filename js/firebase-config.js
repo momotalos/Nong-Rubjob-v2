@@ -1,5 +1,6 @@
 // ============ FIREBASE CONFIGURATION ============
-// Using Firebase compat SDK (loaded via CDN in index.html) — no build step needed.
+// Firebase Auth is NOT used — demo uses hardcoded accounts.
+// Firestore IS used to persist chat sessions and sanctuary data.
 
 const firebaseConfig = {
   apiKey: "AIzaSyCNp6PCsyxCWI2tYGUYvgyKMkLXNJF9QjE",
@@ -11,5 +12,4 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
 const db = firebase.firestore();

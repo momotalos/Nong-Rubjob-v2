@@ -272,10 +272,11 @@ mascot_mood options: happy, neutral, stressed, sad
 risk_level: 1=low, 2=moderate, 3=crisis
 session_summary_update: brief insight string, empty if nothing new`;
 
-// ============ AUTH (Firebase) ============
-const DEFAULT_PROFILES = {
-  'admin999@gmail.com': { role: 'hr', name: 'Admin (HR)', id: 'HR-001' },
-  'abc123@gmail.com': { role: 'employee', name: 'Alex Chen', id: 'EMP-4729' }
+// ============ AUTH (Hardcoded demo — no Firebase Auth needed) ============
+// Two fixed demo accounts. Firestore still used for chat/sanctuary data per account.
+const DEMO_ACCOUNTS = {
+  'abc123@gmail.com':   { password: '12345678', role: 'employee', name: 'Alex Chen',  id: 'EMP-4729', uid: 'demo_employee' },
+  'admin999@gmail.com': { password: '99999999', role: 'hr',       name: 'Admin (HR)', id: 'HR-001',   uid: 'demo_hr' }
 };
 let currentUser = null;
 let hasConsented = false;
@@ -323,73 +324,20 @@ async function setupLoggedInUser() {
   }
 }
 
-async function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pw = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
   errEl.classList.remove('show');
 
-  if (!email || !pw) { errEl.classList.add('show'); return; }
-
-  let uid = null;
-
-  // Firebase 10 uses 'auth/invalid-credential' for BOTH wrong-password AND user-not-found,
-  // so we can't tell them apart on signIn failure alone.
-  // Strategy: try signIn first; if it fails with any auth error, try createUser;
-  // if createUser fails with 'auth/email-already-in-use', the password was just wrong.
-  try {
-    const cred = await auth.signInWithEmailAndPassword(email, pw);
-    uid = cred.user.uid;
-  } catch (signInErr) {
-    console.warn('Sign-in failed:', signInErr.code);
-    // Only attempt account creation for auth errors (not network errors etc.)
-    const authErrors = [
-      'auth/user-not-found',
-      'auth/invalid-credential',
-      'auth/wrong-password',
-      'auth/invalid-email',
-      'auth/user-disabled'
-    ];
-    if (authErrors.includes(signInErr.code)) {
-      try {
-        const newCred = await auth.createUserWithEmailAndPassword(email, pw);
-        uid = newCred.user.uid;
-        console.log('New account created for:', email);
-      } catch (createErr) {
-        console.warn('Create failed:', createErr.code);
-        // 'auth/email-already-in-use' means account exists but password is wrong
-        // Any other error: show error
-        errEl.classList.add('show');
-        return;
-      }
-    } else {
-      errEl.classList.add('show');
-      return;
-    }
-  }
-
-  try {
-    let profile = await DB.loadProfile(uid);
-    if (!profile) {
-      const defaults = DEFAULT_PROFILES[email] || {
-        role: 'employee',
-        name: email.split('@')[0],
-        id: 'EMP-' + Math.floor(Math.random() * 9000 + 1000)
-      };
-      profile = { ...defaults, email, consented: true };
-      await DB.saveProfile(uid, profile);
-    }
-    if (!profile.consented) {
-      profile.consented = true;
-      await DB.saveProfile(uid, { consented: true });
-    }
-
-    currentUser = { uid, ...profile };
-    await setupLoggedInUser();
-  } catch (err) {
-    console.error('Profile error:', err);
+  const account = DEMO_ACCOUNTS[email];
+  if (!account || account.password !== pw) {
     errEl.classList.add('show');
+    return;
   }
+
+  currentUser = { uid: account.uid, email, role: account.role, name: account.name, id: account.id, consented: true };
+  setupLoggedInUser();
 }
 
 async function seedDemoSanctuary() {
@@ -435,8 +383,7 @@ async function initSanctuary() {
   refreshSanctuary();
 }
 
-async function logout() {
-  try { await auth.signOut(); } catch(e) { console.error('Logout error:', e); }
+function logout() {
   currentUser = null;
   sanctuaryCache = null;
   sessions = [];
@@ -1156,16 +1103,7 @@ function init() {
   renderBarChart();
   renderHeatmap();
 
-  auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      const profile = await DB.loadProfile(user.uid);
-      if (profile && profile.consented) {
-        currentUser = { uid: user.uid, ...profile };
-        hasConsented = true;
-        await setupLoggedInUser();
-      }
-    }
-  });
+  // No Firebase Auth state listener needed — using hardcoded demo accounts
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
