@@ -634,12 +634,17 @@ function hideMascot() { document.getElementById('mascot-fab').classList.add('hid
     fab.style.left = (initialX + dx) + 'px';
     fab.style.top = (initialY + dy) + 'px';
   });
-  document.addEventListener('mouseup', (e) => {
-    if (dragging && moved) e.stopPropagation();
+  document.addEventListener('mouseup', () => {
     dragging = false;
-    setTimeout(() => { moved = false; }, 100);
+    // Don't call stopPropagation here — it blocks ALL clicks on the page
   });
-  fab.addEventListener('click', (e) => { if (moved) e.stopImmediatePropagation(); }, true);
+  fab.addEventListener('click', (e) => {
+    if (moved) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      moved = false;
+    }
+  }, true);
 })();
 
 function setMascotMood(mood) {
