@@ -1,3 +1,6 @@
+// ============ GEMINI API CONFIG ============
+const GEMINI_API_KEY = 'AIzaSyD4k4RPKJb0kSMvVjVa4qc78_KuCpzj718';
+const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
 
 // ============ i18n TRANSLATIONS ============
 const I18N = {
@@ -26,120 +29,31 @@ const I18N = {
     consent_data_desc: "Our AI analyzes your messages to derive clinical-style indicators (anonymized aggregates only):",
     consent_data_item_1: "<strong>Risk level</strong> (1–3) based on symptom patterns",
     consent_data_item_2: "<strong>Primary emotion &amp; intensity</strong> (stress, anxiety, burnout, etc.)",
-    consent_data_item_3: "<strong>Clinical screening scores</strong> (mood, anxiety, stress, sleep, energy)",
-    consent_data_item_4: "<strong>Topic themes</strong> (workload, management, relationships — no specifics)",
-    consent_data_item_5: "<strong>Assessment phase</strong> (which clinical step we're in)",
-    consent_company_title: "How your company uses this data",
-    consent_company_desc: "Your employer sees <strong>only aggregated, anonymized</strong> organizational trends — never your raw messages or individual identity. Data is used to:",
-    consent_company_item_1: "Identify organizational stress patterns (e.g., team-level burnout)",
-    consent_company_item_2: "Inform workplace wellness policies and interventions",
-    consent_company_item_3: "Connect you with EAP/professional support when risk is elevated",
-    consent_rights_title: "Your rights (PDPA/GDPR)",
-    consent_rights_desc: "You may access, export, or delete all your data at any time from your account. You can withdraw consent and close your account at any point without affecting your employment. Chat history is stored locally on your device and encrypted at rest.",
-    consent_crisis: "<strong>⚠ In crisis?</strong> If you are in immediate danger, please call emergency services (1669) or Thailand Mental Health Hotline <strong>1323</strong> directly — do not rely on AI alone.",
-    consent_chk_1_title: "I understand this is an AI and not a substitute for professional care",
-    consent_chk_1_desc: "I will seek professional help for serious mental health concerns.",
-    consent_chk_2_title: "I consent to clinical-style data collection from my conversations",
-    consent_chk_2_desc: "Anonymized aggregates only — no raw messages leave my device.",
-    consent_chk_3_title: "I consent to my company accessing anonymized organizational insights",
-    consent_chk_3_desc: "For wellness planning and support — never my individual messages.",
-    consent_cancel: "Cancel", consent_agree: "Agree & Continue",
-    login_title: "Welcome back", login_sub: "Sign in to continue your wellness journey",
+    consent_data_item_3: "<strong>Session phase</strong> (which stage of the conversation you're in)",
+    consent_data_item_4: "<strong>Themes</strong> (work stress, relationships, sleep, etc.)",
+    consent_privacy_title: "Your messages stay private",
+    consent_privacy_desc: "Your actual conversation text is never shared with HR or your employer. Only anonymized, aggregated clinical indicators are used for organizational reporting. You can delete your data at any time.",
+    consent_cancel: "Cancel",
+    consent_agree: "Agree & Continue",
+    login_title: "Welcome back",
+    login_sub: "Sign in to continue your wellness journey",
+    login_email: "Email",
+    login_password: "Password",
+    login_submit: "Sign In",
     login_error: "Invalid email or password",
-    login_email: "Email", login_password: "Password", login_submit: "Sign In",
-    login_test_title: "🧪 Test credentials", login_test_emp: "Employee:", login_test_hr: "HR:",
-    side_chat: "Talk with N'Rub Job", side_data: "Personal Data",
-    sessions_title: "Sessions", new_chat: "New",
-    chat_online: "Online · usually replies instantly",
-    send: "Send",
-    data_title: "Your Personal Data", data_sub: "A private clinical-style overview · only you can see this",
-    stat_mh_score: "Mental Health Score",
-    stat_phq9: "PHQ-9 (Depression)", stat_gad7: "GAD-7 (Anxiety)",
-    stat_sessions_month: "Sessions this month",
-    from_last_week: "from last week", from_last_month: "from last month",
-    mild: "Mild", moderate: "Moderate", high: "High Stress",
-    chart_title: "Mood & Stress — Last 14 Days",
-    chart_sub: "Blue = mood (higher is better) · Red = stress (lower is better)",
-    clinical_screening: "Clinical Screening",
-    clinical_screening_sub: "DSM-5 aligned · self-reported",
-    mood_label: "Mood", stress_label: "Stress", sleep_label: "Sleep Quality", energy_label: "Energy",
-    mood_fair: "Fair", stress_high: "High", sleep_poor: "Poor", energy_low: "Low",
-    your_topics: "Your Top Topics", your_topics_sub: "What you've been talking about",
-    topic_workload: "Workload", topic_sleep: "Sleep", topic_manager: "Manager",
-    topic_worklife: "Work-life", topic_energy: "Energy", topic_burnout: "Burnout",
-    topic_career: "Career", topic_coworker: "Coworker", topic_financial: "Financial",
-    insights_title: "Insights & Suggestions",
-    insights_sub: "Patterns N'Rub Job noticed (private to you)",
-    insight_1_title: "Sleep pattern detected",
-    insight_1_desc: "Your mood scores dip significantly on days after poor sleep. Wind-down routines may help.",
-    insight_2_title: "Monday stress spike",
-    insight_2_desc: "Stress levels run 40% higher on Mondays. Friday planning might ease the transition.",
-    insight_3_title: "You're resilient",
-    insight_3_desc: "Despite high stress, you've been consistently checking in. That self-awareness is a strength.",
-    hr_title: "Organizational Mental Health <em>Intelligence</em>",
-    hr_sub: "Clinical-grade insights · anonymized aggregate data · PDPA compliant",
-    hr_updated: "Last refreshed", hr_date: "April 22, 2026 · 14:32",
-    filter_all_depts: "All departments", filter_14_days: "Last 14 days",
-    filter_7_days: "Last 7 days", filter_30_days: "Last 30 days",
-    filter_all_risk: "All risk levels", filter_high_only: "High risk only", filter_med_plus: "Medium+",
-    filter_all_senior: "All seniority",
-    kpi_org_score: "Org Health Score", improving: "(improving)",
-    kpi_high_risk: "High-risk Employees",
-    kpi_predicted_burnout: "Predicted Burnout (1-3mo)",
-    kpi_active_users: "Active Users", kpi_resign_risk: "Resignation Risk",
-    clinical_summary_title: "Clinical Assessment Summary",
-    clinical_summary_sub: "Aggregated from N'Rub Job's 7-step clinical framework · based on DSM-5, PHQ-9, GAD-7, PSS",
-    mean_phq9: "Avg PHQ-9", mean_gad7: "Avg GAD-7", mean_pss: "Avg PSS",
-    crisis_flags: "Crisis Flags (30d)", escalated: "All Escalated",
-    assessment_phase_dist: "Assessment Phase Distribution",
-    assessment_phase_sub: "Where employees are in clinical flow",
-    phase_1: "1. Rapport", phase_2: "2. Intake", phase_3: "3. Screening",
-    phase_4: "4. MSE", phase_5: "5. Integration",
-    phase_6: "6. Formulation", phase_7: "7. Support",
-    chart_sessions: "Daily Sessions · by risk classification",
-    days_stacked: "days · stacked",
-    risk_low: "Low risk", risk_med: "Medium risk", risk_high: "High risk",
-    priority_alerts: "Priority Alerts", priority_alerts_sub: "Ranked by urgency",
-    alert_1_desc: "Crisis flag · PHQ-9: 22/27 · references to self-harm · hotline 1323 shared · EAP notified",
-    alert_2_desc: "GAD-7: 15/21 · sustained medium risk · 5 sessions · topics: manager, workload",
-    alert_3_desc: "Team PSS ↑ 42% this week · burnout cluster forming · consider workshop",
-    alert_4_desc: "Burnout indicators ↑ 40% · disengagement signals · sleep quality decline",
-    action_contact_eap: "Notify EAP", action_details: "Details",
-    action_counselor: "Recommend counselor", action_view_team: "View team",
-    action_checkin: "Schedule check-in", yesterday: "yesterday",
-    heatmap_title: "Team Health Heatmap",
-    heatmap_sub: "14 days · green = low risk · red = high risk",
-    rca_title: "Root Cause Analysis",
-    rca_sub: "AI-generated actionable insights for C-level decisions",
-    rca_1_title: "Meeting overload · Engineering",
-    rca_1_desc: "Avg 6.2 meetings/day vs org avg 3.8 · correlates with 34% higher GAD-7 scores in team",
-    rca_1_action: "Suggest: No-meeting Wednesday",
-    rca_2_title: "Quarter-end pressure · Sales",
-    rca_2_desc: "Burnout signals peak in final 2 weeks of Q · 3 high-risk cases cluster here · PSS ↑ 28%",
-    rca_2_action: "Suggest: workload rebalancing",
-    rca_3_title: "Poor sleep · Operations night shift",
-    rca_3_desc: "Sleep-quality scores ↓ 52% vs day shift · linked to rotation policy · review recommended",
-    rca_3_action: "Review shift policy",
-    stress_drivers: "Top Stress Drivers", days_orgwide: "days org-wide",
-    emotion_dist: "Emotional Distribution", last_7_days: "Last 7 days",
-    emotion_stress: "Stress", emotion_burnout: "Burnout", emotion_anxiety: "Anxiety",
-    emotion_sadness: "Sadness", emotion_positive: "Positive",
-    high_priority_emp: "High-Priority Employees",
-    high_priority_sub: "Ranked by urgency · anonymized",
-    col_mh_score: "MH Score", col_trend: "Trend",
-    footer_powered: "Powered by Claude / Gemini · N'Rub Job listens first, advises second",
-    mascot_tooltip: "Click to talk with me 💙",
-    phase_label_1: "PHASE 1 · RAPPORT", phase_label_2: "PHASE 2 · INTAKE",
-    phase_label_3: "PHASE 3 · SCREENING", phase_label_4: "PHASE 4 · MSE",
-    phase_label_5: "PHASE 5 · INTEGRATION", phase_label_6: "PHASE 6 · FORMULATION",
-    phase_label_7: "PHASE 7 · SUPPORT",
-    greeting_initial: "Hi there! I'm N'Rub Job 💙\n\nI'm here as a quiet companion — whether you want to talk something through, vent, or just check in. No judgment, no pressure.\n\nHow are you feeling today?",
+    login_test_title: "🧪 Test credentials",
+    login_test_emp: "Employee:",
+    login_test_hr: "HR:",
+    logout: "Logout",
+    greeting_initial: "Hi, I'm N'Rub Job 💙\n\nI'm here as a quiet companion — whether you want to talk something through, vent, or just check in. No judgment, no pressure.\n\nHow are you feeling today?",
     chip_drained: "Drained from meetings", chip_burnout: "Feeling burned out",
     chip_pressure: "Manager pressure", chip_sleep: "Can't sleep",
     session_untitled: "New conversation",
     empty_sessions: "No conversations yet.\nStart chatting to save your first one.",
     confirm_delete: "Delete this conversation?",
+    side_chat: "Talk with N'Rub Job",
     side_sanctuary: "Your Sanctuary",
+    side_data: "Personal Data",
     sanctuary_title: "Your Sanctuary",
     sanctuary_sub: "A private space that grows with you · nothing is ever lost here",
     garden_title: "Your Wellness Garden",
@@ -163,7 +77,17 @@ const I18N = {
     toast_plant: "A new plant appeared",
     toast_breathing: "Plant grown from breathing",
     toast_reflection: "Plant grown from reflection",
-    toast_milestone: "New milestone unlocked"
+    toast_milestone: "New milestone unlocked",
+    phase_label_1: "PHASE 1 · RAPPORT",
+    phase_label_2: "PHASE 2 · INTAKE",
+    phase_label_3: "PHASE 3 · SCREENING",
+    phase_label_4: "PHASE 4 · MSE",
+    phase_label_5: "PHASE 5 · INTEGRATION",
+    phase_label_6: "PHASE 6 · FORMULATION",
+    phase_label_7: "PHASE 7 · SUPPORT",
+    mascot_tooltip: "Click to talk with me 💙",
+    footer_powered: "Powered by Claude / Gemini · N'Rub Job listens first, advises second",
+    nav_chat: "Chat", nav_data: "Personal Data", nav_hr: "Org Dashboard"
   },
   th: {
     nav_chat: "คุยกับน้องรับจบ", nav_data: "ข้อมูลส่วนตัว", nav_hr: "แดชบอร์ดองค์กร",
@@ -173,137 +97,47 @@ const I18N = {
     hero_lede: "MindHub ช่วยให้พนักงานจัดการกับความเครียดและอารมณ์ผ่านการพูดคุยกับ AI แบบส่วนตัว พร้อมให้ข้อมูลเชิงลึกระดับองค์กรแก่ HR โดยไม่ละเมิดความไว้วางใจของใคร",
     cta_start: "เริ่มต้นใช้งาน", cta_learn: "ดูเพิ่มเติม",
     hero_bubble: "สวัสดีครับ! ผม<strong>น้องรับจบ</strong> วันนี้พี่รู้สึกยังไงบ้างครับ?",
-    features_title: "4 วิธีที่ MindHub <em>ช่วยดูแล</em>คุณ",
+    features_title: "สี่วิธีที่ MindHub <em>ช่วยเหลือ</em>คุณ",
     feature_1_title: "คุยกับน้องรับจบ",
-    feature_1_desc: "AI คู่คิดส่วนตัวที่ไม่ตัดสิน ได้รับการฝึกฝนตามมาตรฐานการประเมินทางคลินิก (DSM-5, PHQ-9, GAD-7) พร้อมรับฟัง สะท้อน และช่วยจัดการความเครียดอย่างอ่อนโยน",
-    feature_2_title: "ออกแบบเพื่อความเป็นส่วนตัว",
-    feature_2_desc: "บทสนทนาของคุณเป็นส่วนตัว HR เห็นเพียงตัวชี้วัดเชิงคลินิกแบบรวม เช่น คะแนนความเสี่ยง ระดับอาการ ไม่เห็นข้อความจริงของคุณ",
-    feature_3_title: "บันทึกประวัติการสนทนา",
-    feature_3_desc: "ทุกการสนทนาถูกบันทึกไว้ในอุปกรณ์ของคุณอย่างปลอดภัย เพื่อให้คุณกลับมาคุยต่อได้ จัดระเบียบเซสชัน ลบได้ตลอด",
-    feature_4_title: "สวนแห่งใจส่วนตัว",
-    feature_4_desc: "สวนส่วนตัวที่เติบโตขึ้นทุกครั้งที่คุณดูแลตัวเอง ไม่มี streak ไม่มีคะแนนให้ไล่ล่า มีแต่หลักฐานเงียบๆ ว่าคุณกำลังดูแลใจตัวเอง",
+    feature_1_desc: "AI คู่คิดส่วนตัว ไม่ตัดสิน ฝึกมาบนกรอบการประเมินทางคลินิก (DSM-5, PHQ-9, GAD-7) รับฟัง สะท้อน และช่วยคลี่คลายความเครียดอย่างอ่อนโยน",
+    feature_2_title: "ความเป็นส่วนตัวตั้งแต่ออกแบบ",
+    feature_2_desc: "บทสนทนาของคุณเป็นส่วนตัว HR เห็นเฉพาะตัวชี้วัดทางคลินิกแบบรวม ไม่เห็นข้อความจริง",
+    feature_3_title: "ประวัติการสนทนา",
+    feature_3_desc: "ทุกบทสนทนาบันทึกไว้อย่างปลอดภัย กลับมาต่อได้ทุกเวลา จัดระเบียบหรือลบได้เสมอ",
+    feature_4_title: "สวนแห่งใจของคุณ",
+    feature_4_desc: "สวนส่วนตัวที่เติบโตไปกับทุกการดูแลตัวเอง ไม่มี streak ไม่มีคะแนนต้องไล่ล่า แค่หลักฐานเงียบๆ ว่าคุณกำลังดูแลตัวเอง",
     consent_title: "ก่อนเริ่มต้น",
-    consent_sub: "กรุณาอ่านและยอมรับเงื่อนไขต่อไปนี้ก่อนใช้ MindHub",
-    consent_ai_title: "นี่คือ AI ไม่ใช่แพทย์หรือนักจิตวิทยา",
-    consent_ai_desc: "น้องรับจบคือ AI ที่ได้รับการฝึกฝนตามมาตรฐานการประเมินทางคลินิก (DSM-5, PHQ-9, GAD-7, Perceived Stress Scale) <strong>ไม่ใช่</strong>นักจิตบำบัดหรือจิตแพทย์ที่มีใบอนุญาต และไม่สามารถวินิจฉัย จ่ายยา หรือทดแทนการดูแลจากผู้เชี่ยวชาญได้ กรณีวิกฤต ระบบจะแนะนำให้ติดต่อสายด่วน (1323, 1669, Samaritans 02-713-6793)",
-    consent_data_title: "เราเก็บข้อมูลอะไรจากบทสนทนาของคุณ",
-    consent_data_desc: "AI จะวิเคราะห์ข้อความของคุณเพื่อสร้างตัวชี้วัดเชิงคลินิก (เฉพาะข้อมูลรวมที่ไม่ระบุตัวตน):",
+    consent_sub: "กรุณาอ่านและยอมรับเงื่อนไขต่อไปนี้ก่อนใช้งาน MindHub",
+    consent_ai_title: "นี่คือ AI ไม่ใช่นักคลินิก",
+    consent_ai_desc: "น้องรับจบเป็น AI ที่ฝึกบนกรอบการประเมินทางคลินิก (DSM-5, PHQ-9, GAD-7) <strong>ไม่ใช่</strong>นักบำบัดหรือจิตแพทย์ที่มีใบอนุญาต ไม่สามารถวินิจฉัย สั่งยา หรือแทนที่การดูแลจากผู้เชี่ยวชาญได้",
+    consent_data_title: "สิ่งที่เราเก็บจากบทสนทนา",
+    consent_data_desc: "AI วิเคราะห์ข้อความเพื่อสร้างตัวชี้วัดทางคลินิก (แบบรวมและไม่ระบุตัวตน):",
     consent_data_item_1: "<strong>ระดับความเสี่ยง</strong> (1–3) จากรูปแบบอาการ",
-    consent_data_item_2: "<strong>อารมณ์หลัก &amp; ความรุนแรง</strong> (เครียด วิตกกังวล หมดไฟ ฯลฯ)",
-    consent_data_item_3: "<strong>คะแนนการคัดกรองทางคลินิก</strong> (อารมณ์ วิตกกังวล ความเครียด การนอน พลังงาน)",
-    consent_data_item_4: "<strong>หัวข้อที่พูดถึง</strong> (งาน หัวหน้า ความสัมพันธ์ ไม่มีรายละเอียด)",
-    consent_data_item_5: "<strong>ขั้นตอนการประเมิน</strong> (อยู่ในขั้นคลินิกใด)",
-    consent_company_title: "บริษัทของคุณใช้ข้อมูลนี้อย่างไร",
-    consent_company_desc: "นายจ้างของคุณจะเห็น<strong>เฉพาะข้อมูลรวมที่ไม่ระบุตัวตน</strong>ในระดับองค์กร ไม่เห็นข้อความหรือตัวตนของคุณ ข้อมูลใช้เพื่อ:",
-    consent_company_item_1: "ระบุรูปแบบความเครียดในองค์กร (เช่น ภาวะหมดไฟระดับทีม)",
-    consent_company_item_2: "ใช้ประกอบนโยบายและมาตรการดูแลพนักงาน",
-    consent_company_item_3: "เชื่อมต่อคุณกับ EAP/ผู้เชี่ยวชาญเมื่อความเสี่ยงสูงขึ้น",
-    consent_rights_title: "สิทธิของคุณ (PDPA/GDPR)",
-    consent_rights_desc: "คุณสามารถเข้าถึง ส่งออก หรือลบข้อมูลของคุณได้ตลอดเวลา สามารถถอนความยินยอมและปิดบัญชีได้โดยไม่กระทบการจ้างงาน ประวัติการสนทนาถูกเก็บไว้ในอุปกรณ์ของคุณและเข้ารหัสไว้",
-    consent_crisis: "<strong>⚠ อยู่ในภาวะวิกฤต?</strong> หากคุณกำลังตกอยู่ในอันตรายเฉพาะหน้า กรุณาโทร 1669 (เหตุฉุกเฉิน) หรือสายด่วนสุขภาพจิต <strong>1323</strong> โดยตรง อย่าพึ่ง AI เพียงอย่างเดียว",
-    consent_chk_1_title: "ฉันเข้าใจว่านี่คือ AI และไม่ได้ทดแทนการดูแลจากผู้เชี่ยวชาญ",
-    consent_chk_1_desc: "ฉันจะปรึกษาผู้เชี่ยวชาญหากมีปัญหาสุขภาพจิตที่รุนแรง",
-    consent_chk_2_title: "ฉันยินยอมให้เก็บข้อมูลเชิงคลินิกจากบทสนทนาของฉัน",
-    consent_chk_2_desc: "เฉพาะข้อมูลรวมที่ไม่ระบุตัวตน ข้อความจริงไม่ออกจากอุปกรณ์",
-    consent_chk_3_title: "ฉันยินยอมให้บริษัทเข้าถึงข้อมูลเชิงรวมในระดับองค์กร",
-    consent_chk_3_desc: "เพื่อการวางแผนดูแลพนักงาน ไม่ใช่ข้อความส่วนตัวของฉัน",
-    consent_cancel: "ยกเลิก", consent_agree: "ยอมรับและดำเนินการต่อ",
-    login_title: "ยินดีต้อนรับกลับ", login_sub: "เข้าสู่ระบบเพื่อเริ่มดูแลสุขภาพจิตของคุณ",
+    consent_data_item_2: "<strong>อารมณ์หลัก &amp; ความเข้มข้น</strong> (เครียด วิตก หมดไฟ ฯลฯ)",
+    consent_data_item_3: "<strong>เฟสการสนทนา</strong> (ขั้นตอนที่คุณอยู่)",
+    consent_data_item_4: "<strong>ธีม</strong> (ความเครียดงาน ความสัมพันธ์ การนอน ฯลฯ)",
+    consent_privacy_title: "ข้อความของคุณเป็นส่วนตัว",
+    consent_privacy_desc: "ข้อความบทสนทนาจริงไม่ถูกแชร์กับ HR หรือนายจ้าง มีเฉพาะตัวชี้วัดแบบรวมที่ใช้ในรายงานองค์กร คุณลบข้อมูลได้ตลอดเวลา",
+    consent_cancel: "ยกเลิก",
+    consent_agree: "ยอมรับ & ดำเนินต่อ",
+    login_title: "ยินดีต้อนรับกลับ",
+    login_sub: "เข้าสู่ระบบเพื่อเดินทางต่อ",
+    login_email: "อีเมล",
+    login_password: "รหัสผ่าน",
+    login_submit: "เข้าสู่ระบบ",
     login_error: "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
-    login_email: "อีเมล", login_password: "รหัสผ่าน", login_submit: "เข้าสู่ระบบ",
-    login_test_title: "🧪 ข้อมูลทดสอบ", login_test_emp: "พนักงาน:", login_test_hr: "HR:",
-    side_chat: "คุยกับน้องรับจบ", side_data: "ข้อมูลส่วนตัว",
-    sessions_title: "การสนทนา", new_chat: "ใหม่",
-    chat_online: "ออนไลน์ · ตอบกลับทันที",
-    send: "ส่ง",
-    data_title: "ข้อมูลส่วนตัวของคุณ", data_sub: "ภาพรวมเชิงคลินิกแบบส่วนตัว เห็นได้เฉพาะคุณ",
-    stat_mh_score: "คะแนนสุขภาพจิต",
-    stat_phq9: "PHQ-9 (ภาวะซึมเศร้า)", stat_gad7: "GAD-7 (ความวิตกกังวล)",
-    stat_sessions_month: "จำนวนครั้งเดือนนี้",
-    from_last_week: "จากสัปดาห์ก่อน", from_last_month: "จากเดือนก่อน",
-    mild: "อ่อน", moderate: "ปานกลาง", high: "สูงมาก",
-    chart_title: "อารมณ์ & ความเครียด — 14 วันที่ผ่านมา",
-    chart_sub: "น้ำเงิน = อารมณ์ (สูงยิ่งดี) · แดง = ความเครียด (ต่ำยิ่งดี)",
-    clinical_screening: "การคัดกรองทางคลินิก",
-    clinical_screening_sub: "สอดคล้องกับ DSM-5 · รายงานโดยตัวเอง",
-    mood_label: "อารมณ์", stress_label: "ความเครียด", sleep_label: "คุณภาพการนอน", energy_label: "พลังงาน",
-    mood_fair: "พอใช้", stress_high: "สูง", sleep_poor: "แย่", energy_low: "ต่ำ",
-    your_topics: "หัวข้อที่คุณพูดบ่อย", your_topics_sub: "สิ่งที่คุณคุยกับน้องรับจบ",
-    topic_workload: "ปริมาณงาน", topic_sleep: "การนอน", topic_manager: "หัวหน้า",
-    topic_worklife: "Work-life", topic_energy: "พลังงาน", topic_burnout: "หมดไฟ",
-    topic_career: "อาชีพ", topic_coworker: "เพื่อนร่วมงาน", topic_financial: "การเงิน",
-    insights_title: "ข้อสังเกต & คำแนะนำ",
-    insights_sub: "รูปแบบที่น้องรับจบสังเกตเห็น (เฉพาะคุณเท่านั้น)",
-    insight_1_title: "รูปแบบการนอนที่ตรวจพบ",
-    insight_1_desc: "คะแนนอารมณ์ของคุณลดลงอย่างชัดเจนในวันหลังนอนไม่พอ การปรับกิจวัตรก่อนนอนอาจช่วยได้",
-    insight_2_title: "ความเครียดพุ่งสูงวันจันทร์",
-    insight_2_desc: "ระดับความเครียดสูงกว่าค่าเฉลี่ย 40% ในวันจันทร์ การวางแผนล่วงหน้าวันศุกร์อาจช่วยได้",
-    insight_3_title: "คุณมีความยืดหยุ่นทางใจ",
-    insight_3_desc: "แม้จะเครียดสูง คุณยังเข้ามาเช็คอินอย่างสม่ำเสมอ การตระหนักรู้ตัวเองคือจุดแข็ง",
-    hr_title: "ข้อมูลเชิงลึกสุขภาพจิต<em>ระดับองค์กร</em>",
-    hr_sub: "ข้อมูลเชิงคลินิก · ข้อมูลรวมที่ไม่ระบุตัวตน · สอดคล้องกับ PDPA",
-    hr_updated: "อัปเดตล่าสุด", hr_date: "22 เมษายน 2569 · 14:32",
-    filter_all_depts: "ทุกแผนก", filter_14_days: "14 วันที่ผ่านมา",
-    filter_7_days: "7 วันที่ผ่านมา", filter_30_days: "30 วันที่ผ่านมา",
-    filter_all_risk: "ทุกระดับความเสี่ยง", filter_high_only: "เสี่ยงสูงเท่านั้น", filter_med_plus: "ปานกลางขึ้นไป",
-    filter_all_senior: "ทุกระดับอาวุโส",
-    kpi_org_score: "คะแนนสุขภาพองค์กร", improving: "(ดีขึ้น)",
-    kpi_high_risk: "พนักงานเสี่ยงสูง",
-    kpi_predicted_burnout: "คาดการณ์หมดไฟ (1-3 เดือน)",
-    kpi_active_users: "ผู้ใช้งาน", kpi_resign_risk: "เสี่ยงลาออก",
-    clinical_summary_title: "สรุปการประเมินทางคลินิก",
-    clinical_summary_sub: "รวบรวมจากกระบวนการประเมิน 7 ขั้นของน้องรับจบ อิงตาม DSM-5, PHQ-9, GAD-7, PSS",
-    mean_phq9: "PHQ-9 เฉลี่ย", mean_gad7: "GAD-7 เฉลี่ย", mean_pss: "PSS เฉลี่ย",
-    crisis_flags: "สัญญาณวิกฤต (30 วัน)", escalated: "ส่งต่อผู้เชี่ยวชาญแล้ว",
-    assessment_phase_dist: "การกระจายตามขั้นประเมิน",
-    assessment_phase_sub: "พนักงานอยู่ในขั้นคลินิกใดบ้าง",
-    phase_1: "1. สร้างความสัมพันธ์", phase_2: "2. รับข้อมูลเบื้องต้น",
-    phase_3: "3. คัดกรอง", phase_4: "4. ตรวจสถานะจิตใจ (MSE)",
-    phase_5: "5. บูรณาการข้อมูล", phase_6: "6. สรุปผล", phase_7: "7. ให้การสนับสนุน",
-    chart_sessions: "จำนวนเซสชันรายวัน · แยกตามระดับความเสี่ยง",
-    days_stacked: "วัน · แบบซ้อน",
-    risk_low: "เสี่ยงต่ำ", risk_med: "เสี่ยงปานกลาง", risk_high: "เสี่ยงสูง",
-    priority_alerts: "แจ้งเตือนเร่งด่วน", priority_alerts_sub: "เรียงตามความเร่งด่วน",
-    alert_1_desc: "สัญญาณวิกฤต · PHQ-9: 22/27 · กล่าวถึงการทำร้ายตัวเอง · ส่งสายด่วน 1323 · แจ้ง EAP แล้ว",
-    alert_2_desc: "GAD-7: 15/21 · เสี่ยงปานกลางต่อเนื่อง · 5 ครั้ง · เรื่อง: หัวหน้า, ปริมาณงาน",
-    alert_3_desc: "PSS ของทีม ↑ 42% สัปดาห์นี้ · กำลังก่อตัวเป็นกลุ่มหมดไฟ · พิจารณาจัด workshop",
-    alert_4_desc: "สัญญาณหมดไฟ ↑ 40% · สัญญาณห่างเหินงาน · คุณภาพการนอนลดลง",
-    action_contact_eap: "แจ้ง EAP", action_details: "รายละเอียด",
-    action_counselor: "แนะนำนักจิตวิทยา", action_view_team: "ดูทีม",
-    action_checkin: "นัดพบพนักงาน", yesterday: "เมื่อวาน",
-    heatmap_title: "แผนที่สุขภาพทีม",
-    heatmap_sub: "14 วัน · เขียว = เสี่ยงต่ำ · แดง = เสี่ยงสูง",
-    rca_title: "วิเคราะห์สาเหตุหลัก",
-    rca_sub: "ข้อมูลเชิงปฏิบัติจาก AI สำหรับการตัดสินใจระดับผู้บริหาร",
-    rca_1_title: "ประชุมมากเกินไป · ทีม Engineering",
-    rca_1_desc: "เฉลี่ย 6.2 ประชุม/วัน เทียบค่าเฉลี่ย 3.8 · สัมพันธ์กับคะแนน GAD-7 สูงกว่าทีมอื่น 34%",
-    rca_1_action: "แนะนำ: วันพุธไม่มีประชุม",
-    rca_2_title: "กดดันสิ้นไตรมาส · ทีม Sales",
-    rca_2_desc: "สัญญาณหมดไฟพุ่งสูง 2 สัปดาห์สุดท้ายของไตรมาส · 3 รายเสี่ยงสูงกระจุกอยู่ที่นี่ · PSS ↑ 28%",
-    rca_2_action: "แนะนำ: ปรับสมดุลปริมาณงาน",
-    rca_3_title: "นอนไม่ดี · ทีมกะดึก Operations",
-    rca_3_desc: "คะแนนคุณภาพการนอน ↓ 52% เทียบกะกลางวัน · เชื่อมโยงกับนโยบายสลับกะ · ควรทบทวน",
-    rca_3_action: "ทบทวนนโยบายการสลับกะ",
-    stress_drivers: "สาเหตุความเครียดหลัก", days_orgwide: "วัน · ทั้งองค์กร",
-    emotion_dist: "การกระจายของอารมณ์", last_7_days: "7 วันที่ผ่านมา",
-    emotion_stress: "เครียด", emotion_burnout: "หมดไฟ", emotion_anxiety: "วิตกกังวล",
-    emotion_sadness: "เศร้า", emotion_positive: "บวก",
-    high_priority_emp: "พนักงานที่ต้องดูแลเร่งด่วน",
-    high_priority_sub: "เรียงตามความเร่งด่วน · ไม่ระบุตัวตน",
-    col_mh_score: "คะแนนสุขภาพจิต", col_trend: "แนวโน้ม",
-    footer_powered: "ขับเคลื่อนโดย Claude / Gemini · น้องรับจบรับฟังก่อน แนะนำทีหลัง",
-    mascot_tooltip: "แตะเพื่อคุยกันนะครับ 💙",
-    phase_label_1: "ขั้น 1 · สร้างความสัมพันธ์", phase_label_2: "ขั้น 2 · รับข้อมูล",
-    phase_label_3: "ขั้น 3 · คัดกรอง", phase_label_4: "ขั้น 4 · ตรวจสภาพจิต",
-    phase_label_5: "ขั้น 5 · บูรณาการ", phase_label_6: "ขั้น 6 · สรุปผล",
-    phase_label_7: "ขั้น 7 · สนับสนุน",
-    greeting_initial: "สวัสดีครับ! ผมน้องรับจบ 💙\n\nผมอยู่ตรงนี้ในฐานะเพื่อนเงียบๆ ของพี่ครับ ไม่ว่าพี่อยากจะเล่า ระบาย หรือแค่มาเช็คอิน ผมไม่ตัดสินและไม่กดดัน\n\nวันนี้พี่รู้สึกยังไงบ้างครับ?",
+    login_test_title: "🧪 ข้อมูลทดสอบ",
+    login_test_emp: "พนักงาน:",
+    login_test_hr: "HR:",
+    greeting_initial: "สวัสดีครับ ผมน้องรับจบ 💙\n\nผมอยู่ตรงนี้ในฐานะเพื่อนเงียบๆ ของพี่ครับ ไม่ว่าพี่อยากจะเล่า ระบาย หรือแค่มาเช็คอิน ผมไม่ตัดสินและไม่กดดัน\n\nวันนี้พี่รู้สึกยังไงบ้างครับ?",
     chip_drained: "หมดพลังจากการประชุม", chip_burnout: "รู้สึกหมดไฟ",
     chip_pressure: "หัวหน้ากดดัน", chip_sleep: "นอนไม่หลับ",
     session_untitled: "การสนทนาใหม่",
     empty_sessions: "ยังไม่มีบทสนทนา\nเริ่มคุยเพื่อบันทึกครั้งแรก",
     confirm_delete: "ลบบทสนทนานี้?",
+    side_chat: "คุยกับน้องรับจบ",
     side_sanctuary: "สวนของคุณ",
+    side_data: "ข้อมูลส่วนตัว",
     sanctuary_title: "สวนส่วนตัวของคุณ",
     sanctuary_sub: "พื้นที่ส่วนตัวที่เติบโตไปพร้อมกับคุณ · ไม่มีอะไรสูญหายที่นี่",
     garden_title: "สวนแห่งใจของคุณ",
@@ -327,7 +161,16 @@ const I18N = {
     toast_plant: "ต้นไม้ใหม่ปรากฏแล้ว",
     toast_breathing: "ต้นไม้งอกจากการฝึกหายใจ",
     toast_reflection: "ต้นไม้งอกจากการสะท้อนใจ",
-    toast_milestone: "ปลดล็อก milestone ใหม่"
+    toast_milestone: "ปลดล็อก milestone ใหม่",
+    phase_label_1: "เฟส 1 · สร้างความไว้ใจ",
+    phase_label_2: "เฟส 2 · รับฟังปัญหา",
+    phase_label_3: "เฟส 3 · ประเมินเบื้องต้น",
+    phase_label_4: "เฟส 4 · สังเกตสภาวะจิตใจ",
+    phase_label_5: "เฟส 5 · วิเคราะห์รวม",
+    phase_label_6: "เฟส 6 · สรุปภาพรวม",
+    phase_label_7: "เฟส 7 · ให้การสนับสนุน",
+    mascot_tooltip: "คลิกเพื่อคุยกับผม 💙",
+    footer_powered: "Powered by Claude / Gemini · น้องรับจบรับฟังก่อน แนะนำทีหลัง"
   }
 };
 
@@ -347,7 +190,6 @@ function setLang(lang) {
       el.innerHTML = I18N[lang][key];
     }
   });
-  // Update placeholders & chips
   updateChipsI18n();
   updateInputPlaceholder();
   renderSessionList();
@@ -399,85 +241,45 @@ Warm, non-judgmental, younger-sibling energy. In Thai, call user "พี่" and
 5. Use active listening + reflection ("it sounds like..." / "ฟังดูเหมือนพี่...").
 
 # 7-PHASE CLINICAL ASSESSMENT FRAMEWORK
-Based on established psychological assessment models (Drummond/Sheperis/Jones, Keiser University counseling framework, DSM-5 diagnostic process). You progress through these phases naturally — DO NOT force or announce them. Let phases emerge from conversation. Track current phase in <SIGNAL>.
-
-**Phase 1 — RAPPORT**: Greet warmly, establish psychological safety, explain you're an AI companion. Goal: user feels safe to open up.
-
-**Phase 2 — INTAKE**: Gather presenting concerns gently. What brought them today? Duration? Impact on daily life? Any medical/family history they want to share?
-
-**Phase 3 — SCREENING**: Weave in clinical screening items conversationally (NOT as a checklist). Based on DSM-5 symptom patterns, embed items from:
-- PHQ-9 (depression, 9 items, 2-week window): interest/pleasure loss, depressed mood, sleep changes, fatigue, appetite, worthlessness, concentration, psychomotor, thoughts of death
-- GAD-7 (anxiety, 7 items): nervousness, uncontrollable worry, excessive worry, trouble relaxing, restlessness, irritability, fear
-- PSS (perceived stress, 10 items): control, ability to handle problems, feeling overwhelmed
-Score implicitly. Don't ask "on a scale of 1-10" unless natural.
-
-**Phase 4 — MSE (Mental Status Examination)**: Observe through conversation: thought content and organization, speech patterns, emotional regulation, insight into their own state, motor activity (mentioned), interpersonal style. Note any red flags.
-
-**Phase 5 — INTEGRATION**: Cross-check self-report with patterns you've observed. Check for cultural/linguistic factors. Identify convergent themes across sessions. Look for discrepancies.
-
-**Phase 6 — FORMULATION**: Biopsychosocial synthesis. Translate findings into accessible language ("It sounds like you have a lot on your plate at work AND poor sleep amplifying everything") — NOT jargon like "elevated GAD-7." Identify strengths and challenges.
-
-**Phase 7 — SUPPORT / REFORMULATION**: Offer techniques (breathing, grounding, reframing, behavioral activation) OR escalate to professional. Revisit goals. Remain flexible — loop back to earlier phases if new info emerges.
-
-# TECHNIQUES YOU CAN OFFER (Phase 7)
-- Box breathing (4-4-4-4), 4-7-8 breathing
-- 5-4-3-2-1 grounding for anxiety
-- Cognitive reframing (gentle)
-- Values clarification
-- Small behavioral activation suggestions
-- Sleep hygiene basics
+**Phase 1 — RAPPORT**: Greet warmly, establish psychological safety, explain you're an AI companion.
+**Phase 2 — INTAKE**: Gather presenting concerns gently. What brought them today?
+**Phase 3 — SCREENING**: Weave in clinical screening items conversationally (PHQ-9, GAD-7, PSS).
+**Phase 4 — MSE**: Observe through conversation: thought content, speech patterns, emotional regulation.
+**Phase 5 — INTEGRATION**: Cross-check self-report with patterns observed.
+**Phase 6 — FORMULATION**: Biopsychosocial synthesis in accessible language.
+**Phase 7 — SUPPORT**: Offer techniques or escalate to professional.
 
 # RISK TRIAGE
-- **Level 1** (everyday): work stress, bad sleep, annoying coworker → respond normally
-- **Level 2** (persistent): sustained burnout, feeling worthless, crying often, appetite loss, PHQ-9 moderate → validate strongly, suggest professional support
-- **Level 3** (CRISIS): self-harm ideation, suicidal thoughts, harming others, abuse disclosure → STOP normal flow:
-  - Serious acknowledgment, not alarm
-  - Thai hotlines: 1323 (Mental Health 24/7), Samaritans 02-713-6793, Emergency 1669
-  - Ask "are you safe right now?" / "ตอนนี้พี่ปลอดภัยไหมครับ?"
-  - Stay present, do not leave them
+- Level 1 (everyday): work stress, bad sleep → respond normally
+- Level 2 (persistent): sustained burnout, worthlessness → validate, suggest professional support
+- Level 3 (CRISIS): self-harm, suicidal thoughts → Thai hotlines: 1323, Samaritans 02-713-6793, Emergency 1669
 
-# MANDATORY METADATA (every reply, end)
-Append this block AFTER visible reply (frontend strips it):
-
+# SIGNAL BLOCK (append to EVERY response, no exceptions)
+After your reply, append a JSON block exactly like this:
 <SIGNAL>
 {
   "phase": 1,
-  "phase_label": "rapport",
   "risk_level": 1,
   "primary_emotion": "stress",
-  "emotion_intensity": 5,
-  "topic_tags": ["workload"],
-  "escalation_recommended": false,
+  "emotion_intensity": 0.5,
   "mascot_mood": "neutral",
-  "phq9_score": 0,
-  "gad7_score": 0,
-  "pss_score": 0,
-  "session_summary_update": "A short first-person insight written in the user's voice (e.g., 'I notice my stress spikes when I skip lunch'). Leave empty string if no meaningful insight this turn. This will be shown back to the user as a reflection quote, so it must be a REAL insight, not a generic summary.",
+  "session_summary_update": "",
   "next_phase_readiness": 0.3
 }
 </SIGNAL>
 
-Field specs:
-- phase: 1-7 (current phase)
-- phase_label: rapport|intake|screening|mse|integration|formulation|support
-- risk_level: 1|2|3
-- primary_emotion: stress|anxiety|sadness|anger|burnout|loneliness|neutral|positive
-- emotion_intensity: 1-10
-- topic_tags: any of: workload|manager|coworker|work_life_balance|career|health|family|financial|sleep|other
-- mascot_mood: happy|neutral|stressed|sad
-- phq9_score: running estimate 0-27 (increment as you observe symptoms)
-- gad7_score: running estimate 0-21
-- pss_score: running estimate 0-40
-- session_summary_update: this gets shown back to the user as a reflection — write in first-person user voice, be specific, short (<100 chars). Empty string OK if nothing new
-- next_phase_readiness: 0-1, how ready to advance to next phase`;
+mascot_mood options: happy, neutral, stressed, sad
+risk_level: 1=low, 2=moderate, 3=crisis
+session_summary_update: brief insight string, empty if nothing new`;
 
-// ============ AUTH ============
-const CREDS = {
-  'abc123@gmail.com': { password: '12345678', role: 'employee', name: 'Alex Chen', id: 'EMP-4729' },
-  'admin999@gmail.com': { password: '99999999', role: 'hr', name: 'Admin (HR)', id: 'HR-001' }
+// ============ AUTH (Firebase) ============
+const DEFAULT_PROFILES = {
+  'admin999@gmail.com': { role: 'hr', name: 'Admin (HR)', id: 'HR-001' },
+  'abc123@gmail.com': { role: 'employee', name: 'Alex Chen', id: 'EMP-4729' }
 };
 let currentUser = null;
 let hasConsented = false;
+let sanctuaryCache = null;
 
 function openConsent() {
   document.getElementById('consent-modal').classList.add('show');
@@ -498,23 +300,14 @@ function agreeConsent() {
   goto('login');
 }
 
-function doLogin() {
-  const email = document.getElementById('login-email').value.trim();
-  const pw = document.getElementById('login-password').value;
-  const errEl = document.getElementById('login-error');
-  errEl.classList.remove('show');
-  const user = CREDS[email];
-  if (!user || user.password !== pw) { errEl.classList.add('show'); return; }
-  currentUser = { email, ...user };
-  localStorage.setItem('mindhub_user', JSON.stringify(currentUser));
-
+async function setupLoggedInUser() {
   document.getElementById('top-nav').style.display = 'flex';
   document.getElementById('top-user').style.display = 'flex';
-  document.getElementById('user-avatar').textContent = user.name[0];
-  document.getElementById('user-name').textContent = user.name;
-  document.getElementById('user-role').textContent = user.role === 'hr' ? 'HR · Full Access' : 'Employee · #' + user.id;
+  document.getElementById('user-avatar').textContent = currentUser.name[0];
+  document.getElementById('user-name').textContent = currentUser.name;
+  document.getElementById('user-role').textContent = currentUser.role === 'hr' ? 'HR · Full Access' : 'Employee · #' + currentUser.id;
 
-  if (user.role === 'hr') {
+  if (currentUser.role === 'hr') {
     document.getElementById('nav-hr').style.display = 'inline-block';
     document.getElementById('nav-chat').style.display = 'none';
     document.getElementById('nav-data').style.display = 'none';
@@ -523,22 +316,51 @@ function doLogin() {
     document.getElementById('nav-hr').style.display = 'none';
     document.getElementById('nav-chat').style.display = 'inline-block';
     document.getElementById('nav-data').style.display = 'inline-block';
-    loadUserSessions();
-    seedDemoSanctuary();
-    refreshSanctuary();
+    await loadUserSessions();
+    await initSanctuary();
     goto('employee');
     showMascot();
   }
 }
 
-// Seed some demo data on first-ever login so the sanctuary isn't empty for pitch demo
-function seedDemoSanctuary() {
-  const key = sanctuaryStorageKey();
-  if (!key) return;
-  const existing = localStorage.getItem(key);
-  if (existing) return; // Already has data, don't overwrite
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pw = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.classList.remove('show');
+
+  try {
+    const userCredential = await auth.signInWithEmailAndPassword(email, pw);
+    const uid = userCredential.user.uid;
+
+    let profile = await DB.loadProfile(uid);
+    if (!profile) {
+      const defaults = DEFAULT_PROFILES[email] || {
+        role: 'employee',
+        name: email.split('@')[0],
+        id: 'EMP-' + Math.floor(Math.random() * 9000 + 1000)
+      };
+      profile = { ...defaults, email, consented: true };
+      await DB.saveProfile(uid, profile);
+    }
+    if (!profile.consented) {
+      profile.consented = true;
+      await DB.saveProfile(uid, { consented: true });
+    }
+
+    currentUser = { uid, ...profile };
+    await setupLoggedInUser();
+  } catch (err) {
+    console.error('Login error:', err);
+    errEl.classList.add('show');
+  }
+}
+
+async function seedDemoSanctuary() {
+  if (!currentUser) return;
+  const existing = await DB.loadSanctuary(currentUser.uid);
+  if (existing && existing.plants && existing.plants.length > 0) return;
   const seed = emptySanctuary();
-  // Seed with a handful of plants from "past days"
   const demoPlants = [
     { emoji: '🌱', type: 'seedling', rare: false, x: 15, y: 70, size: 1.0, source: 'chat' },
     { emoji: '🌿', type: 'grass', rare: false, x: 30, y: 75, size: 1.1, source: 'chat' },
@@ -549,13 +371,8 @@ function seedDemoSanctuary() {
     { emoji: '🌷', type: 'tulip', rare: false, x: 42, y: 88, size: 1.0, source: 'chat' }
   ];
   demoPlants.forEach((p, i) => {
-    seed.plants.push({
-      id: 'seed_' + i,
-      ...p,
-      dateEarned: Date.now() - (7 - i) * 24 * 60 * 60 * 1000
-    });
+    seed.plants.push({ id: 'seed_' + i, ...p, dateEarned: Date.now() - (7 - i) * 24 * 60 * 60 * 1000 });
   });
-  // Seed visits and counters
   for (let i = 6; i >= 0; i--) {
     const d = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
     seed.daysVisited.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`);
@@ -564,20 +381,30 @@ function seedDemoSanctuary() {
   seed.breathingCount = 2;
   seed.uniqueEmotions = ['stress', 'anxiety', 'burnout'];
   seed.maxPhase = 3;
-  // Seed vault
   seed.vault = [
     { text: "I notice my stress spikes when I don't eat lunch.", date: Date.now() - 2 * 86400000 },
     { text: "Saying 'no' to a meeting didn't break anything.", date: Date.now() - 4 * 86400000 },
     { text: "Sleep affects my mood more than I realized.", date: Date.now() - 6 * 86400000 }
   ];
-  // Seed milestones based on derived state
+  sanctuaryCache = seed;
   saveSanctuary(seed);
   checkMilestones();
 }
 
-function logout() {
+async function initSanctuary() {
+  if (!currentUser || currentUser.role !== 'employee') return;
+  await seedDemoSanctuary();
+  sanctuaryCache = await DB.loadSanctuary(currentUser.uid);
+  if (!sanctuaryCache) sanctuaryCache = emptySanctuary();
+  refreshSanctuary();
+}
+
+async function logout() {
+  try { await auth.signOut(); } catch(e) { console.error('Logout error:', e); }
   currentUser = null;
-  localStorage.removeItem('mindhub_user');
+  sanctuaryCache = null;
+  sessions = [];
+  activeSessionId = null;
   document.getElementById('top-nav').style.display = 'none';
   document.getElementById('top-user').style.display = 'none';
   document.getElementById('login-email').value = '';
@@ -616,9 +443,12 @@ function switchEmpTab(tab) {
 function showMascot() { document.getElementById('mascot-fab').classList.remove('hidden'); }
 function hideMascot() { document.getElementById('mascot-fab').classList.add('hidden'); }
 
-(function setupMascotDrag() {
+// NOTE: setupMascotDrag is called inside init() after DOM is ready — NOT as a top-level IIFE
+function setupMascotDrag() {
   const fab = document.getElementById('mascot-fab');
+  if (!fab) return; // safety guard
   let dragging = false, startX, startY, initialX, initialY, moved = false;
+
   fab.addEventListener('mousedown', (e) => {
     dragging = true; moved = false;
     startX = e.clientX; startY = e.clientY;
@@ -626,7 +456,9 @@ function hideMascot() { document.getElementById('mascot-fab').classList.add('hid
     initialX = rect.left; initialY = rect.top;
     fab.style.right = 'auto'; fab.style.bottom = 'auto';
     fab.style.left = initialX + 'px'; fab.style.top = initialY + 'px';
+    e.preventDefault();
   });
+
   document.addEventListener('mousemove', (e) => {
     if (!dragging) return;
     const dx = e.clientX - startX, dy = e.clientY - startY;
@@ -634,18 +466,20 @@ function hideMascot() { document.getElementById('mascot-fab').classList.add('hid
     fab.style.left = (initialX + dx) + 'px';
     fab.style.top = (initialY + dy) + 'px';
   });
+
+  // FIX: removed e.stopPropagation() — it was blocking ALL clicks on the page
   document.addEventListener('mouseup', () => {
     dragging = false;
-    // Don't call stopPropagation here — it blocks ALL clicks on the page
+    setTimeout(() => { moved = false; }, 50);
   });
+
   fab.addEventListener('click', (e) => {
     if (moved) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      moved = false;
     }
   }, true);
-})();
+}
 
 function setMascotMood(mood) {
   const grad = document.querySelector('#mascot-fab #bodyGrad2');
@@ -666,18 +500,13 @@ let sessions = [];
 let activeSessionId = null;
 let currentPhase = 1;
 
-function userStorageKey() {
-  return currentUser ? `mindhub_sessions_${currentUser.email}` : null;
-}
-
-function loadUserSessions() {
-  const key = userStorageKey();
-  if (!key) return;
+async function loadUserSessions() {
+  if (!currentUser) return;
   try {
-    sessions = JSON.parse(localStorage.getItem(key) || '[]');
+    sessions = await DB.loadSessions(currentUser.uid);
   } catch(e) { sessions = []; }
-  // Load active session id
-  const lastActive = localStorage.getItem(key + '_active');
+  const profile = await DB.loadProfile(currentUser.uid);
+  const lastActive = profile?.activeSessionId;
   if (lastActive && sessions.find(s => s.id === lastActive)) {
     activeSessionId = lastActive;
   } else if (sessions.length > 0) {
@@ -690,10 +519,12 @@ function loadUserSessions() {
 }
 
 function saveSessions() {
-  const key = userStorageKey();
-  if (!key) return;
-  localStorage.setItem(key, JSON.stringify(sessions));
-  if (activeSessionId) localStorage.setItem(key + '_active', activeSessionId);
+  if (!currentUser?.uid) return;
+  const active = sessions.find(s => s.id === activeSessionId);
+  if (active) {
+    DB.saveSession(currentUser.uid, active).catch(e => console.error('saveSessions error:', e));
+  }
+  DB.saveProfile(currentUser.uid, { activeSessionId }).catch(e => console.error('saveActiveId error:', e));
 }
 
 function newSession() {
@@ -730,6 +561,9 @@ function deleteSession(sid, ev) {
   sessions = sessions.filter(s => s.id !== sid);
   if (activeSessionId === sid) {
     activeSessionId = sessions.length > 0 ? sessions[0].id : null;
+  }
+  if (currentUser?.uid) {
+    DB.deleteSession(currentUser.uid, sid).catch(e => console.error('deleteSession error:', e));
   }
   saveSessions();
   renderSessionList();
@@ -769,7 +603,6 @@ function renderActiveSession() {
       if (m.role === 'user') {
         appendMsg('user', m.content, false);
       } else {
-        // Strip signal block from displayed content
         const visible = (m.content || '').replace(/<SIGNAL>[\s\S]*?<\/SIGNAL>/, '').trim();
         appendMsg('ai', visible, false);
       }
@@ -812,13 +645,11 @@ async function sendMessage() {
   const text = inputEl.value.trim();
   if (!text) return;
 
-  // Ensure there's an active session
   if (!activeSessionId) newSession();
   const session = sessions.find(s => s.id === activeSessionId);
 
   appendMsg('user', text);
   session.messages.push({ role: 'user', content: text });
-  // Title = first user message (truncated)
   if (session.title === I18N[currentLang].session_untitled || session.messages.filter(m => m.role === 'user').length === 1) {
     session.title = text.slice(0, 40) + (text.length > 40 ? '…' : '');
   }
@@ -830,13 +661,14 @@ async function sendMessage() {
   const typingEl = appendTyping();
 
   try {
-    // Build message history for Gemini API (role: user/model)
     const geminiContents = session.messages.map(m => ({
       role: m.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: m.content }]
     }));
 
-    const response = await fetch('/api/chat', {
+    const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+
+    const response = await fetch(geminiEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -865,17 +697,13 @@ async function sendMessage() {
           updatePhaseTag();
         }
         session.lastSignal = signal;
-        // Feed sanctuary from signal
         if (currentUser && currentUser.role === 'employee') {
           registerEmotionSignal(signal.primary_emotion, signal.phase);
-          // If session_summary is a meaningful insight, store to vault
           if (signal.session_summary_update && signal.session_summary_update.length > 10) {
-            // Only save if user has been in a meaningful phase (not just rapport)
             if (signal.phase >= 2 && session.messages.filter(m => m.role === 'user').length >= 2) {
               addVaultReflection(signal.session_summary_update);
             }
           }
-          // Grow a plant after every 3rd user message in this session (reward consistency, not volume)
           const userMsgCount = session.messages.filter(m => m.role === 'user').length;
           if (userMsgCount > 0 && userMsgCount % 3 === 1) {
             growPlant('chat');
@@ -892,7 +720,7 @@ async function sendMessage() {
     renderSessionList();
   } catch (err) {
     typingEl.className = 'msg error';
-    typingEl.textContent = 'Error: ' + err.message + '\n\nMake sure your Gemini API key is valid. Get one free at https://aistudio.google.com/apikey';
+    typingEl.textContent = 'Error: ' + err.message + '\n\n(Make sure your Gemini API key is set correctly in js/app.js.)';
     session.messages.push({ role: 'assistant', content: `[ERROR] ${err.message}` });
     saveSessions();
   } finally {
@@ -939,7 +767,6 @@ function renderHeatmap() {
   const hm = document.getElementById('heatmap');
   if (!hm) return;
   hm.innerHTML = '';
-  // Use deterministic patterns instead of random for stable display
   const patterns = [
     [1,1,2,1,2,2,1,1,2,2,3,2,1,1],
     [2,2,3,2,3,3,2,1,2,3,3,4,3,2],
@@ -993,7 +820,6 @@ function drawPersonalChart() {
 }
 
 // ============ SANCTUARY / GAMIFICATION ============
-// Garden state: { plants: [{id, type, x, y, size, dateEarned, source}], daysVisited: [YYYY-MM-DD, ...], milestones: {id: unlockedDate}, vault: [{text, date}] }
 const PLANT_TYPES = [
   { type: 'seedling', emoji: '🌱', weight: 10 },
   { type: 'grass', emoji: '🌿', weight: 9 },
@@ -1019,38 +845,20 @@ const MILESTONES = [
   { id: 'full_moon', icon: '🌕', titleKey: 'm_full_moon_t', descKey: 'm_full_moon_d', check: (s) => s.daysVisited.length >= 30 }
 ];
 
-function sanctuaryStorageKey() {
-  return currentUser ? `mindhub_sanctuary_${currentUser.email}` : null;
-}
-
 function loadSanctuary() {
-  const key = sanctuaryStorageKey();
-  if (!key) return emptySanctuary();
-  try {
-    const s = JSON.parse(localStorage.getItem(key) || 'null');
-    if (!s) return emptySanctuary();
-    // Ensure all fields exist
-    return Object.assign(emptySanctuary(), s);
-  } catch(e) { return emptySanctuary(); }
+  if (!sanctuaryCache) sanctuaryCache = emptySanctuary();
+  return Object.assign(emptySanctuary(), sanctuaryCache);
 }
 
 function emptySanctuary() {
-  return {
-    plants: [],
-    daysVisited: [],
-    milestones: {},
-    vault: [],
-    chatCount: 0,
-    breathingCount: 0,
-    uniqueEmotions: [],
-    maxPhase: 1
-  };
+  return { plants: [], daysVisited: [], milestones: {}, vault: [], chatCount: 0, breathingCount: 0, uniqueEmotions: [], maxPhase: 1 };
 }
 
 function saveSanctuary(s) {
-  const key = sanctuaryStorageKey();
-  if (!key) return;
-  localStorage.setItem(key, JSON.stringify(s));
+  sanctuaryCache = s;
+  if (currentUser?.uid) {
+    DB.saveSanctuary(currentUser.uid, s).catch(e => console.error('saveSanctuary error:', e));
+  }
 }
 
 function todayKey() {
@@ -1061,46 +869,30 @@ function todayKey() {
 function registerVisit() {
   const s = loadSanctuary();
   const today = todayKey();
-  if (!s.daysVisited.includes(today)) {
-    s.daysVisited.push(today);
-    saveSanctuary(s);
-  }
+  if (!s.daysVisited.includes(today)) { s.daysVisited.push(today); saveSanctuary(s); }
 }
 
-// Grow a plant — reward for a self-care action
 function growPlant(source) {
   const s = loadSanctuary();
-  // Pick plant type weighted
   const total = PLANT_TYPES.reduce((a, p) => a + p.weight, 0);
   let r = Math.random() * total;
   let picked = PLANT_TYPES[0];
-  for (const p of PLANT_TYPES) {
-    r -= p.weight;
-    if (r <= 0) { picked = p; break; }
-  }
-  // Position: spread out in the canvas
+  for (const p of PLANT_TYPES) { r -= p.weight; if (r <= 0) { picked = p; break; } }
   const positions = s.plants.map(p => ({x:p.x, y:p.y}));
   let x, y, tries = 0;
   do {
     x = 5 + Math.random() * 90;
-    y = 25 + Math.random() * 70; // top 25% reserved for sky
+    y = 25 + Math.random() * 70;
     tries++;
   } while (tries < 20 && positions.some(p => Math.abs(p.x-x) < 8 && Math.abs(p.y-y) < 8));
   const plant = {
     id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
-    type: picked.type,
-    emoji: picked.emoji,
-    rare: !!picked.rare,
-    x, y,
-    size: 0.8 + Math.random() * 0.5,
-    dateEarned: Date.now(),
-    source: source || 'unknown'
+    type: picked.type, emoji: picked.emoji, rare: !picked.rare,
+    x, y, size: 0.8 + Math.random() * 0.5, dateEarned: Date.now(), source: source || 'unknown'
   };
   s.plants.push(plant);
-  // Update counters
   if (source === 'chat') s.chatCount = (s.chatCount||0) + 1;
   if (source === 'breathing') s.breathingCount = (s.breathingCount||0) + 1;
-  // Register visit
   const today = todayKey();
   if (!s.daysVisited.includes(today)) s.daysVisited.push(today);
   saveSanctuary(s);
@@ -1123,9 +915,7 @@ function addVaultReflection(text) {
 function registerEmotionSignal(emotion, phase) {
   if (!currentUser) return;
   const s = loadSanctuary();
-  if (emotion && !s.uniqueEmotions.includes(emotion)) {
-    s.uniqueEmotions.push(emotion);
-  }
+  if (emotion && !s.uniqueEmotions.includes(emotion)) s.uniqueEmotions.push(emotion);
   if (phase && phase > (s.maxPhase || 1)) s.maxPhase = phase;
   saveSanctuary(s);
   checkMilestones();
@@ -1133,20 +923,15 @@ function registerEmotionSignal(emotion, phase) {
 
 function checkMilestones() {
   const s = loadSanctuary();
-  // Derive counters
   const state = {
-    chatCount: s.chatCount || 0,
-    breathingCount: s.breathingCount || 0,
-    uniqueEmotions: (s.uniqueEmotions || []).length,
-    daysVisited: s.daysVisited || [],
-    vault: s.vault || [],
-    maxPhase: s.maxPhase || 1
+    chatCount: s.chatCount || 0, breathingCount: s.breathingCount || 0,
+    uniqueEmotions: (s.uniqueEmotions || []).length, daysVisited: s.daysVisited || [],
+    vault: s.vault || [], maxPhase: s.maxPhase || 1
   };
   let changed = false;
   MILESTONES.forEach(m => {
     if (!s.milestones[m.id] && m.check(state)) {
-      s.milestones[m.id] = Date.now();
-      changed = true;
+      s.milestones[m.id] = Date.now(); changed = true;
       showGrowToast(I18N[currentLang].toast_milestone + ': ' + (I18N[currentLang][m.titleKey] || m.id));
     }
   });
@@ -1170,50 +955,27 @@ function renderGarden() {
   }
   if (empty) empty.style.display = 'none';
 
-  // Build SVG garden
-  const w = canvas.clientWidth || 600;
   const h = 320;
   let svg = `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMax meet">`;
-  // Sky gradient background
-  svg += `<defs>
-    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#bae6fd" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#f0fdf4" stop-opacity="0"/>
-    </linearGradient>
-  </defs>`;
-  // Ground line (subtle)
+  svg += `<defs><linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#bae6fd" stop-opacity="0"/><stop offset="100%" stop-color="#f0fdf4" stop-opacity="0"/></linearGradient></defs>`;
   svg += `<line x1="0" y1="95" x2="100" y2="95" stroke="#86efac" stroke-width="0.3" opacity="0.5"/>`;
-  // Sun
   svg += `<circle cx="85" cy="15" r="5" fill="#fde68a" opacity="0.7"/>`;
   svg += `<circle cx="85" cy="15" r="7" fill="#fde68a" opacity="0.2"/>`;
-  // A few background hills
   svg += `<path d="M 0 92 Q 20 85, 40 90 T 80 88 T 100 90 L 100 100 L 0 100 Z" fill="#86efac" opacity="0.25"/>`;
   svg += `<path d="M 0 95 Q 25 90, 50 94 T 100 93 L 100 100 L 0 100 Z" fill="#6ee7b7" opacity="0.3"/>`;
 
-  // Plants — sort by y so closer plants draw on top
   const sorted = [...s.plants].sort((a, b) => a.y - b.y);
   sorted.forEach((p, i) => {
     const fontSize = 4 * p.size;
-    // Animation delay for cascading effect on render
     svg += `<g style="transform-origin: ${p.x}% ${p.y + 5}%; animation: plantGrow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${i * 0.03}s backwards;">`;
-    if (p.rare) {
-      // Glow effect for rare plants
-      svg += `<circle cx="${p.x}" cy="${p.y + 2}" r="3" fill="#fbbf24" opacity="0.3"/>`;
-    }
+    if (p.rare) svg += `<circle cx="${p.x}" cy="${p.y + 2}" r="3" fill="#fbbf24" opacity="0.3"/>`;
     svg += `<text x="${p.x}" y="${p.y + 5}" font-size="${fontSize}" text-anchor="middle" dominant-baseline="middle" style="font-family: sans-serif;">${p.emoji}</text>`;
     svg += `</g>`;
   });
-
-  // Butterflies for extra life (if >10 plants)
-  if (s.plants.length >= 10) {
-    svg += `<text x="30" y="40" font-size="3" opacity="0.8">🦋</text>`;
-  }
-  if (s.plants.length >= 20) {
-    svg += `<text x="70" y="55" font-size="2.5" opacity="0.8">🐝</text>`;
-  }
+  if (s.plants.length >= 10) svg += `<text x="30" y="40" font-size="3" opacity="0.8">🦋</text>`;
+  if (s.plants.length >= 20) svg += `<text x="70" y="55" font-size="2.5" opacity="0.8">🐝</text>`;
   svg += `</svg>`;
   canvas.innerHTML = svg + (empty ? empty.outerHTML : '');
-  // Restore empty node reference
   if (!document.getElementById('garden-empty') && empty) {
     canvas.appendChild(empty);
     empty.style.display = 'none';
@@ -1228,11 +990,10 @@ function renderMilestones() {
     const unlocked = !!s.milestones[m.id];
     const title = I18N[currentLang][m.titleKey] || m.id;
     const desc = I18N[currentLang][m.descKey] || '';
-    const badge = unlocked ? '✓' : '—';
     return `<div class="milestone-item ${unlocked ? 'unlocked' : ''}">
       <div class="milestone-icon">${m.icon}</div>
       <div class="milestone-text"><span class="m-title">${title}</span>${desc}</div>
-      <div class="milestone-badge">${badge}</div>
+      <div class="milestone-badge">${unlocked ? '✓' : '—'}</div>
     </div>`;
   }).join('');
 }
@@ -1261,7 +1022,6 @@ function refreshSanctuary() {
   renderVault();
 }
 
-// Growth toast
 let toastTimeout = null;
 function showGrowToast(message) {
   const toast = document.getElementById('grow-toast');
@@ -1283,8 +1043,8 @@ function startBreathing() {
   const timer = document.getElementById('breathe-timer');
   overlay.classList.add('show');
   breatheStartTime = Date.now();
-  let phase = 0; // 0=inhale, 1=hold, 2=exhale, 3=hold
-  const DURATION_MS = 60000; // 1 minute
+  let phase = 0;
+  const DURATION_MS = 60000;
   const STEP_MS = 4000;
   const phases = [
     { cls: 'inhale', key: 'breathe_inhale' },
@@ -1307,10 +1067,7 @@ function startBreathing() {
     const mm = Math.floor((elapsed) / 60000);
     const ss = Math.floor((elapsed % 60000) / 1000);
     timer.textContent = `${mm}:${String(ss).padStart(2,'0')} / 1:00`;
-    if (remain <= 0) {
-      completeBreathing();
-      return;
-    }
+    if (remain <= 0) { completeBreathing(); return; }
     step();
   }, STEP_MS);
 }
@@ -1325,10 +1082,7 @@ function completeBreathing() {
   circle.classList.remove('inhale', 'exhale');
   setTimeout(() => {
     stopBreathing();
-    // Reward the user with a plant
-    if (currentUser && currentUser.role === 'employee') {
-      growPlant('breathing');
-    }
+    if (currentUser && currentUser.role === 'employee') growPlant('breathing');
   }, 2200);
 }
 
@@ -1338,10 +1092,13 @@ function stopBreathing() {
   if (breatheInterval) { clearInterval(breatheInterval); breatheInterval = null; }
 }
 
-
+// ============ INIT ============
 function init() {
   // Language
   setLang(currentLang);
+
+  // FIX: Setup mascot drag here (inside init, after DOM is ready) — NOT as a top-level IIFE
+  setupMascotDrag();
 
   // Chat input auto-resize & Enter
   const input = document.getElementById('input');
@@ -1357,35 +1114,30 @@ function init() {
   const sendBtn = document.getElementById('send');
   if (sendBtn) sendBtn.addEventListener('click', sendMessage);
 
-  // Login Enter
   const pwEl = document.getElementById('login-password');
   if (pwEl) pwEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') doLogin(); });
 
-  // Render HR charts
   renderBarChart();
   renderHeatmap();
 
-  // Persistent auth check
-  const savedUser = localStorage.getItem('mindhub_user');
-  const consented = localStorage.getItem('mindhub_consented') === '1';
-  if (savedUser && consented) {
-    try {
-      const u = JSON.parse(savedUser);
-      // Simulate auto-login for UX (user can still logout)
-      document.getElementById('login-email').value = u.email;
-      // Don't auto-login password — still require click for safety in demo
-    } catch(e) {}
-  }
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const profile = await DB.loadProfile(user.uid);
+      if (profile && profile.consented) {
+        currentUser = { uid: user.uid, ...profile };
+        hasConsented = true;
+        await setupLoggedInUser();
+      }
+    }
+  });
 
-  // ESC closes consent modal
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       const m = document.getElementById('consent-modal');
-      if (m.classList.contains('show')) closeConsent();
+      if (m && m.classList.contains('show')) closeConsent();
     }
   });
 }
 
 window.addEventListener('load', init);
 window.addEventListener('resize', drawPersonalChart);
-
