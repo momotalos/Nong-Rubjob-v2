@@ -329,10 +329,31 @@ async function doLogin() {
   const errEl = document.getElementById('login-error');
   errEl.classList.remove('show');
 
-  try {
-    const userCredential = await auth.signInWithEmailAndPassword(email, pw);
-    const uid = userCredential.user.uid;
+  let uid = null;
 
+  try {
+    // Try signing in first
+    const userCredential = await auth.signInWithEmailAndPassword(email, pw);
+    uid = userCredential.user.uid;
+  } catch (signInErr) {
+    // If user doesn't exist yet, create them automatically
+    if (signInErr.code === 'auth/user-not-found' || signInErr.code === 'auth/invalid-credential' || signInErr.code === 'auth/invalid-email') {
+      try {
+        const newCredential = await auth.createUserWithEmailAndPassword(email, pw);
+        uid = newCredential.user.uid;
+      } catch (createErr) {
+        console.error('Login/create error:', createErr);
+        errEl.classList.add('show');
+        return;
+      }
+    } else {
+      console.error('Login error:', signInErr);
+      errEl.classList.add('show');
+      return;
+    }
+  }
+
+  try {
     let profile = await DB.loadProfile(uid);
     if (!profile) {
       const defaults = DEFAULT_PROFILES[email] || {
@@ -351,7 +372,7 @@ async function doLogin() {
     currentUser = { uid, ...profile };
     await setupLoggedInUser();
   } catch (err) {
-    console.error('Login error:', err);
+    console.error('Profile error:', err);
     errEl.classList.add('show');
   }
 }
