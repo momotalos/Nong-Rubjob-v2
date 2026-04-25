@@ -1,3 +1,8 @@
+// ============ GEMINI API CONFIG ============
+const GEMINI_API_KEY = 'AIzaSyD4k4RPKJb0kSMvVjVa4qc78_KuCpzj718';
+const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
+
+
 // ============ i18n TRANSLATIONS ============
 const I18N = {
   en: {
@@ -824,22 +829,29 @@ async function sendMessage() {
   const typingEl = appendTyping();
 
   try {
-    // Build message history for API (only user/assistant content)
-    const apiMessages = session.messages.map(m => ({ role: m.role, content: m.content }));
+    // Build message history for Gemini API (role: user/model)
+    const geminiContents = session.messages.map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+
+    const response = await fetch(geminiEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        system: SYSTEM_PROMPT,
-        messages: apiMessages
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: geminiContents,
+        generationConfig: { maxOutputTokens: 1000, temperature: 0.7 }
       })
     });
-    if (!response.ok) throw new Error(`API ${response.status}`);
+    if (!response.ok) {
+      const errBody = await response.json().catch(() => ({}));
+      throw new Error(`API ${response.status}: ${errBody.error?.message || response.statusText}`);
+    }
     const data = await response.json();
-    const fullText = data.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
+    const fullText = (data.candidates?.[0]?.content?.parts || []).map(p => p.text).join('\n');
     const visibleText = fullText.replace(/<SIGNAL>[\s\S]*?<\/SIGNAL>/, '').trim();
 
     const sigMatch = fullText.match(/<SIGNAL>([\s\S]*?)<\/SIGNAL>/);
@@ -881,7 +893,7 @@ async function sendMessage() {
     renderSessionList();
   } catch (err) {
     typingEl.className = 'msg error';
-    typingEl.textContent = 'Error: ' + err.message + '\n\n(Note: this demo currently uses the Anthropic endpoint. Once you port to Gemini via Google AI Studio, replace the fetch() above.)';
+    typingEl.textContent = 'Error: ' + err.message + '\n\nMake sure your Gemini API key is valid. Get one free at https://aistudio.google.com/apikey';
     session.messages.push({ role: 'assistant', content: `[ERROR] ${err.message}` });
     saveSessions();
   } finally {
