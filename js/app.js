@@ -1,5 +1,5 @@
 // ============ GEMINI API CONFIG ============
-const GEMINI_API_KEY = 'AIzaSyD4k4RPKJb0kSMvVjVa4qc78_KuCpzj718';
+const GEMINI_API_KEY = 'PASTE_YOUR_NEW_GEMINI_API_KEY_HERE';
 const GEMINI_MODEL = 'gemini-3.1-flash-lite-preview';
 
 // ============ i18n TRANSLATIONS ============
@@ -86,6 +86,23 @@ const I18N = {
     phase_label_6: "PHASE 6 · FORMULATION",
     phase_label_7: "PHASE 7 · SUPPORT",
     mascot_tooltip: "Click to talk with me 💙",
+    consent_company_title: "How your company uses this data",
+    consent_company_desc: "Your employer sees <strong>only aggregated, anonymized</strong> organizational trends — never your raw messages or individual identity. Data is used to:",
+    consent_company_item_1: "Identify organizational stress patterns (e.g., team-level burnout)",
+    consent_company_item_2: "Inform workplace wellness policies and interventions",
+    consent_company_item_3: "Connect you with EAP/professional support when risk is elevated",
+    consent_rights_title: "Your rights (PDPA/GDPR)",
+    consent_rights_desc: "You may access, export, or delete all your data at any time. You can withdraw consent and close your account without affecting your employment.",
+    consent_crisis: "<strong>⚠ In crisis?</strong> If you are in immediate danger, call emergency services (1669) or Thailand Mental Health Hotline <strong>1323</strong>.",
+    consent_chk_1_title: "I understand this is an AI and not a substitute for professional care",
+    consent_chk_1_desc: "I will seek professional help for serious mental health concerns.",
+    consent_chk_2_title: "I consent to clinical-style data collection from my conversations",
+    consent_chk_2_desc: "Anonymized aggregates only — no raw messages leave my device.",
+    consent_chk_3_title: "I consent to my company accessing anonymized organizational insights",
+    consent_chk_3_desc: "For wellness planning and support — never my individual messages.",
+    consent_data_item_3: "<strong>Clinical screening scores</strong> (mood, anxiety, stress, sleep, energy)",
+    consent_data_item_4: "<strong>Topic themes</strong> (workload, management, relationships — no specifics)",
+    consent_data_item_5: "<strong>Assessment phase</strong> (which clinical step we're in)",
     footer_powered: "Powered by Claude / Gemini · N'Rub Job listens first, advises second",
     nav_chat: "Chat", nav_data: "Personal Data", nav_hr: "Org Dashboard"
   },
@@ -170,6 +187,23 @@ const I18N = {
     phase_label_6: "เฟส 6 · สรุปภาพรวม",
     phase_label_7: "เฟส 7 · ให้การสนับสนุน",
     mascot_tooltip: "คลิกเพื่อคุยกับผม 💙",
+    consent_company_title: "บริษัทใช้ข้อมูลนี้อย่างไร",
+    consent_company_desc: "นายจ้างของคุณเห็นเฉพาะ<strong>แนวโน้มระดับองค์กรที่รวมและไม่ระบุตัวตน</strong>เท่านั้น ไม่เห็นข้อความจริงหรือตัวตนส่วนบุคคล ข้อมูลใช้เพื่อ:",
+    consent_company_item_1: "ระบุรูปแบบความเครียดขององค์กร (เช่น ภาวะหมดไฟระดับทีม)",
+    consent_company_item_2: "กำหนดนโยบายและมาตรการดูแลสุขภาพในที่ทำงาน",
+    consent_company_item_3: "เชื่อมต่อคุณกับการสนับสนุนจากผู้เชี่ยวชาญเมื่อมีความเสี่ยงสูง",
+    consent_rights_title: "สิทธิ์ของคุณ (PDPA/GDPR)",
+    consent_rights_desc: "คุณสามารถเข้าถึง ส่งออก หรือลบข้อมูลทั้งหมดได้ตลอดเวลา สามารถถอนความยินยอมและปิดบัญชีได้โดยไม่กระทบการจ้างงาน",
+    consent_crisis: "<strong>⚠ วิกฤต?</strong> หากคุณอยู่ในอันตราย โทร 1669 หรือสายด่วนสุขภาพจิต <strong>1323</strong> ทันที",
+    consent_chk_1_title: "ฉันเข้าใจว่านี่คือ AI และไม่ใช่ตัวแทนการดูแลจากผู้เชี่ยวชาญ",
+    consent_chk_1_desc: "ฉันจะขอความช่วยเหลือจากผู้เชี่ยวชาญสำหรับปัญหาสุขภาพจิตที่ร้ายแรง",
+    consent_chk_2_title: "ฉันยินยอมให้เก็บข้อมูลแบบคลินิกจากบทสนทนา",
+    consent_chk_2_desc: "เฉพาะข้อมูลรวมที่ไม่ระบุตัวตน — ข้อความจริงไม่ออกจากอุปกรณ์ของฉัน",
+    consent_chk_3_title: "ฉันยินยอมให้บริษัทเข้าถึงข้อมูลเชิงลึกระดับองค์กรที่ไม่ระบุตัวตน",
+    consent_chk_3_desc: "สำหรับการวางแผนสวัสดิการ — ไม่ใช่ข้อความส่วนตัวของฉัน",
+    consent_data_item_3: "<strong>คะแนนคัดกรองทางคลินิก</strong> (อารมณ์ ความวิตก ความเครียด การนอน พลังงาน)",
+    consent_data_item_4: "<strong>ธีมหัวข้อ</strong> (ภาระงาน การจัดการ ความสัมพันธ์ — ไม่ระบุรายละเอียด)",
+    consent_data_item_5: "<strong>ระยะการประเมิน</strong> (ขั้นตอนทางคลินิกที่กำลังดำเนินอยู่)",
     footer_powered: "Powered by Claude / Gemini · น้องรับจบรับฟังก่อน แนะนำทีหลัง"
   }
 };
@@ -273,7 +307,6 @@ risk_level: 1=low, 2=moderate, 3=crisis
 session_summary_update: brief insight string, empty if nothing new`;
 
 // ============ AUTH (Hardcoded demo — no Firebase Auth needed) ============
-// Two fixed demo accounts. Firestore still used for chat/sanctuary data per account.
 const DEMO_ACCOUNTS = {
   'abc123@gmail.com':   { password: '12345678', role: 'employee', name: 'Alex Chen',  id: 'EMP-4729', uid: 'demo_employee' },
   'admin999@gmail.com': { password: '99999999', role: 'hr',       name: 'Admin (HR)', id: 'HR-001',   uid: 'demo_hr' }
@@ -324,7 +357,7 @@ async function setupLoggedInUser() {
   }
 }
 
-function doLogin() {
+async function doLogin() {
   const email = document.getElementById('login-email').value.trim().toLowerCase();
   const pw = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
@@ -337,7 +370,7 @@ function doLogin() {
   }
 
   currentUser = { uid: account.uid, email, role: account.role, name: account.name, id: account.id, consented: true };
-  setupLoggedInUser();
+  await setupLoggedInUser();
 }
 
 async function seedDemoSanctuary() {
@@ -1103,7 +1136,7 @@ function init() {
   renderBarChart();
   renderHeatmap();
 
-  // No Firebase Auth state listener needed — using hardcoded demo accounts
+  // No Firebase Auth — using hardcoded demo accounts
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
